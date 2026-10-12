@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>DISCONNECT. (démo)</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--card:#111;--line:#222;--txt:#f2f2f2;--mut:#8a8a8a;--red:#ff2433;--red2:#b3000f;--glow:0 0 18px rgba(255,36,51,.55)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--txt);font:15px/1.45 Inter,system-ui,sans-serif}
+body{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:84px}
+h1,h2,h3,.u{font-family:Unbounded,Inter,sans-serif;letter-spacing:.02em;text-transform:uppercase}
+h2{font-size:18px;margin:26px 16px 12px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:14px;height:3px;background:var(--red);box-shadow:var(--glow)}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.demo{font-size:11px;text-align:center;color:var(--mut);padding:6px;border-bottom:1px solid var(--line)}
+section{display:none;animation:in .35s ease}
+section.on{display:block}
+.cap section{animation:none}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.pad{padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 16px 12px}
+.btn{display:block;width:100%;text-align:center;padding:14px;border-radius:999px;background:var(--red);color:#fff;font:700 13px Unbounded,sans-serif;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;box-shadow:var(--glow)}
+.btn.ghost{background:transparent;border:1px solid var(--red);box-shadow:none;color:var(--red)}
+.btn+.btn{margin-top:10px}
+.mut{color:var(--mut);font-size:13px}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--mut);margin:2px 4px 2px 0}
+.tag.red{border-color:var(--red);color:var(--red)}
+
+/* Accueil */
+.hero{position:relative;height:440px;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:saturate(1.15)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,var(--bg) 78%)}
+.hero .over{position:absolute;left:0;right:0;bottom:12px;z-index:1;text-align:center}
+.hero .k{font:700 11px Unbounded;letter-spacing:.3em;color:var(--red);text-shadow:var(--glow)}
+.hero h1{font-size:26px;margin:6px 0 2px}
+.count{display:flex;justify-content:center;gap:10px;margin:14px 16px 0}
+.count div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 0;text-align:center}
+.count b{display:block;font:800 24px Unbounded;color:var(--red);text-shadow:var(--glow)}
+.count span{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 16px}
+.stats div{text-align:center;padding:12px 4px;border:1px solid var(--line);border-radius:12px}
+.stats b{display:block;font:700 18px Unbounded}
+.links{display:flex;gap:8px;margin:0 16px}
+.links a{flex:1;text-align:center;padding:12px 4px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:12px;font-weight:600}
+.links a:active{border-color:var(--red)}
+.poll button{display:block;width:100%;text-align:left;position:relative;padding:12px;border:1px solid var(--line);border-radius:10px;margin-top:8px;overflow:hidden}
+.poll i{position:absolute;inset:0 auto 0 0;background:rgba(255,36,51,.18);transition:width .6s}
+.poll span{position:relative;display:flex;justify-content:space-between}
+.poll .me{border-color:var(--red)}
+
+/* Soirées */
+.ev{display:flex;gap:12px;align-items:stretch;padding:0;overflow:hidden}
+.ev img{width:110px;object-fit:cover;flex:none}
+.ev .b{padding:12px 12px 12px 0;flex:1;min-width:0}
+.ev h3{font-size:13px;margin:4px 0}
+.ev .lu{font-size:12px;color:var(--mut);margin:4px 0 8px}
+.been{display:inline-block;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;border:1px solid var(--line)}
+.been.on{background:var(--red);border-color:var(--red);box-shadow:var(--glow)}
+.lvl{display:flex;align-items:center;gap:14px}
+.lvl .n{font:800 34px Unbounded;color:var(--red);text-shadow:var(--glow)}
+.bar{height:6px;background:var(--line);border-radius:9px;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red);box-shadow:var(--glow);transition:width .5s}
+
+/* Line-up */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
+.chips button{flex:none;padding:8px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;font-weight:600}
+.chips .on{background:var(--red);border-color:var(--red)}
+input[type=search],input[type=text]{width:calc(100% - 32px);margin:0 16px 12px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--txt);font:inherit}
+.art{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.art .av{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;font:700 14px Unbounded;background:radial-gradient(circle at 30% 30%,#3a0006,#000);border:1px solid var(--red2)}
+.art b{display:block}
+.art .fav{margin-left:auto;font-size:20px;color:var(--mut)}
+.art .fav.on{color:var(--red);text-shadow:var(--glow)}
+
+/* Moments */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 4px}
+.grid a{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#000}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.grid a:active img{transform:scale(1.04)}
+.grid span{position:absolute;left:8px;bottom:6px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 4px #000}
+
+/* Jour J */
+.ticket{background:linear-gradient(160deg,#1a0003,#0b0b0b 60%);border:1px solid var(--red2);border-radius:18px;margin:0 16px 12px;padding:18px;text-align:center;box-shadow:0 0 30px rgba(255,36,51,.15)}
+.ticket canvas{width:170px;height:170px;background:#fff;border:8px solid #fff;border-radius:10px;margin:14px auto 8px;display:block;image-rendering:pixelated}
+.tl{position:relative;margin:0 16px 12px 24px;padding-left:18px;border-left:2px solid var(--line)}
+.tl div{position:relative;padding:8px 0 8px 6px}
+.tl div::before{content:"";position:absolute;left:-25px;top:13px;width:10px;height:10px;border-radius:50%;background:var(--line)}
+.tl .live::before{background:var(--red);box-shadow:var(--glow)}
+.tl .live b{color:var(--red)}
+.tl .past{opacity:.45}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row .mut{text-align:right}
+details{border-bottom:1px solid var(--line);padding:12px 0}
+details:last-child{border:0}
+summary{font-weight:600;cursor:pointer}
+details p{margin-top:6px}
+
+/* Moi / Orga */
+.sw{width:46px;height:26px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:.2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:var(--red)}
+.sw.on::after{left:23px}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 16px 12px}
+.kpi div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi b{display:block;font:700 22px Unbounded}
+.hb{display:flex;align-items:center;gap:8px;font-size:12px;margin-top:8px}
+.hb span:first-child{width:120px;flex:none}
+.hb i{height:8px;background:var(--red);border-radius:4px;box-shadow:var(--glow)}
+
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:rgba(5,5,5,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:9}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--mut)}
+nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+nav .on{color:var(--red)}
+nav .on svg{filter:drop-shadow(0 0 6px rgba(255,36,51,.8))}
+#toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);background:#fff;color:#000;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:10;white-space:nowrap}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+/* Options */
+.stars{display:flex;gap:6px;margin:10px 0 12px}
+.stars button{font-size:30px;color:#4a4a4a}
+.stars .on{color:var(--red);text-shadow:var(--glow)}
+.day{display:flex;gap:14px;align-items:center}
+.day .d{font:800 26px Unbounded;width:44px;text-align:center;flex:none}
+.day .d small{display:block;font:600 10px Inter;color:var(--mut);text-transform:uppercase}
+.day .b{flex:1}
+.day.ap{border-color:var(--red2)}
+.shop{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 12px}
+.shop>div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.shop .pic{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;margin-bottom:8px;background:radial-gradient(circle at 50% 60%,#3a0006,#000 70%);font-size:44px}
+.shop .pic img{width:46%;border-radius:50%;box-shadow:var(--glow)}
+.shop b{display:block;font-size:13px}
+.shop button{margin-top:8px;width:100%;padding:8px;border-radius:999px;border:1px solid var(--red);color:var(--red);font-size:12px;font-weight:700}
+#meet button.on{background:var(--red);border-color:var(--red)}
+.logo{width:34px;height:34px;border-radius:50%}
+header{display:flex;align-items:center;gap:10px;padding:12px 16px}
+header b{font:800 15px Unbounded;letter-spacing:.08em}
+header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+</style>
+</head>
+<body>
+<div class="demo">Démo · maquette non officielle</div>
+<header><img class="logo" src="logo.jpg" alt="Logo Disconnect"><b>DISCONNECT.</b><button onclick="go('orga')">Espace orga</button></header>
+
+<!-- ACCUEIL -->
+<section id="home" class="on">
+  <div class="hero">
+    <img src="6-churascaia-teaser.jpg" alt="Le logo néon DC de Disconnect">
+    <div class="over"><div class="k">Prochaine nuit</div><h1 id="nx-name"></h1><div class="mut" id="nx-when"></div></div>
+  </div>
+  <div class="count" id="count"></div>
+  <div class="pad" style="margin-top:14px"><a class="btn" id="nx-buy" target="_blank" rel="noopener">Prendre mon billet</a></div>
+
+  <h2>Disconnect Festival</h2>
+  <div class="card" style="padding:0;overflow:hidden">
+    <img src="4-festival-vt.jpg" alt="Affiche Disconnect Festival Val Thorens" style="width:100%;display:block">
+    <div style="padding:16px">
+      <div class="u" style="font-size:14px">Val Thorens · 9 → 14 janv. 2027</div>
+      <p class="mut" style="margin:6px 0 12px">Une semaine au sommet avec Malaysia et La Folie Douce. Inscris-toi pour être prévenu·e en premier à l'ouverture des préventes.</p>
+      <button class="btn" id="prereg" onclick="prereg()">Me pré-inscrire</button>
+      <button class="btn ghost" onclick="go('vt')">Le programme jour par jour</button>
+    </div>
+  </div>
+
+  <h2>Nos lieux</h2>
+  <div class="card" id="places"></div>
+
+  <h2>La famille</h2>
+  <div class="stats"><div><b>1 161</b><span class="mut">abonnés IG</span></div><div><b>5</b><span class="mut">éditions</span></div><div><b id="nb-art"></b><span class="mut">artistes</span></div></div>
+
+  <h2>Qui pour la prochaine ?</h2>
+  <div class="card poll" id="poll"></div>
+
+  <h2>Nous suivre</h2>
+  <div class="links">
+    <a href="https://www.instagram.com/disconnect.music_/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://shotgun.live/venues/disconnect-music" target="_blank" rel="noopener">Shotgun</a>
+    <a href="#" onclick="go('shop');return false">Boutique</a>
+    <a href="#" onclick="share();return false">Partager</a>
+  </div>
+</section>
+
+<!-- FESTIVAL VAL THORENS (ouvert depuis l'accueil) -->
+<section id="vt">
+  <h2>Val Thorens 2027</h2>
+  <p class="mut pad" style="margin:-4px 0 12px">6 nuits au Malaysia, 2 après-ski à La Folie Douce. UK House, Minimal Deep Tech &amp; Tech-House. Jours indicatifs (démo) : le line-up arrive bientôt.</p>
+  <div id="vt-days"></div>
+  <div class="pad"><button class="btn ghost" onclick="go('home')">Retour</button></div>
+</section>
+
+<!-- BOUTIQUE -->
+<section id="shop">
+  <h2>Boutique DC</h2>
+  <p class="mut pad" style="margin:-4px 0 12px">Exemple de merch (démo) : l'organisateur ajoute ses vrais produits.</p>
+  <div class="shop" id="shop-list"></div>
+  <div class="pad"><button class="btn ghost" onclick="go('home')">Retour</button></div>
+</section>
+
+<!-- SOIRÉES -->
+<section id="events">
+  <h2>Mon passeport</h2>
+  <div class="card">
+    <div class="lvl"><div class="n" id="pp-n">0</div><div><b id="pp-lvl"></b><div class="mut" id="pp-txt"></div></div></div>
+    <div class="bar"><i id="pp-bar"></i></div>
+  </div>
+  <h2>À venir</h2><div id="ev-next"></div>
+  <h2>Note la dernière nuit</h2>
+  <div class="card">
+    <div class="mut">Disconnect Festival · 29 août · Clos de Provence</div>
+    <div class="stars" id="stars"></div>
+    <input type="text" id="review" placeholder="Un mot sur la soirée ?" style="width:100%;margin:0 0 10px">
+    <button class="btn" onclick="sendReview()">Envoyer mon avis</button>
+  </div>
+  <h2>Déjà vécues</h2><div id="ev-past"></div>
+  <p class="mut pad">Coche « J'y étais » pour faire grimper ton niveau.</p>
+</section>
+
+<!-- LINE-UP -->
+<section id="lineup">
+  <h2>Line-up</h2>
+  <div class="chips" id="chips"></div>
+  <input type="search" id="q" placeholder="Chercher un artiste…" oninput="renderArtists()">
+  <div id="arts"></div>
+</section>
+
+<!-- MOMENTS -->
+<section id="moments">
+  <h2>Moments</h2>
+  <p class="mut pad" style="margin:-4px 0 12px">Les dernières publications de @disconnect.music_. Touche une photo pour l'ouvrir sur Instagram.</p>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- JOUR J -->
+<section id="jourj">
+  <h2>Mon billet</h2>
+  <div class="ticket">
+    <div class="u" style="font-size:10px;color:var(--red);letter-spacing:.25em">Disconnect × La Churascaia</div>
+    <div class="u" style="font-size:18px;margin-top:6px">Sidney Charles</div>
+    <div class="mut">Mar. 10 nov. 2026 · 22:00 → 05:00</div>
+    <canvas id="qr" width="29" height="29"></canvas>
+    <div class="mut">Billet de démonstration · <span id="tk-name">Invité·e</span></div>
+  </div>
+  <div class="card">
+    <b class="u" style="font-size:12px">Pas encore de billet ?</b>
+    <p class="mut" style="margin:6px 0 12px">Si c'est complet, inscris-toi : une place libérée, et tu es prévenu·e en premier.</p>
+    <button class="btn ghost" id="wait" onclick="waitlist()">Liste d'attente</button>
+  </div>
+
+  <h2>Programme</h2>
+  <p class="mut pad" style="margin:-4px 0 10px">Horaires indicatifs (démo) : l'équipe les annonce sur Instagram.</p>
+  <div class="tl" id="tl"></div>
+
+  <h2>Météo à Vauvert</h2>
+  <div class="card" id="meteo"><span class="mut">Chargement…</span></div>
+
+  <h2>Y aller</h2>
+  <div class="card">
+    <div class="row"><span>📍 La Churascaia</span><span class="mut">Sainte-Anne, 30600 Vauvert</span></div>
+    <div class="row"><span>🕙 Horaires</span><span class="mut">22:00 → 05:00</span></div>
+    <div class="row"><span>🚗 Parking VIP</span><span class="mut">inclus avec la Carte Privilège</span></div>
+    <a class="btn" style="margin-top:12px" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=La+Churascaia+Vauvert">Itinéraire</a>
+    <button class="btn ghost" onclick="toast('Covoiturage : dans la version officielle')">Covoiturage</button>
+  </div>
+
+  <h2>Retrouver ma bande</h2>
+  <div class="card">
+    <p class="mut" style="margin-bottom:10px">Choisis un point de rendez-vous et envoie-le à tes potes.</p>
+    <div class="chips" id="meet" style="padding:0 0 12px;flex-wrap:wrap"></div>
+    <button class="btn" onclick="shareMeet()">Envoyer à ma bande</button>
+  </div>
+
+  <h2>Infos pratiques</h2>
+  <div class="card" id="faq"></div>
+
+  <h2>Besoin d'aide ?</h2>
+  <div class="card">
+    <p class="mut" style="margin-bottom:12px">Un souci sur place ? Va voir le staff à l'entrée, ou appelle les secours.</p>
+    <a class="btn" href="tel:112">Appeler le 112</a>
+  </div>
+</section>
+
+<!-- MOI -->
+<section id="moi">
+  <h2>Mon profil</h2>
+  <input type="text" id="name" placeholder="Ton prénom" oninput="setName(this.value)">
+  <div class="card" id="me-sum"></div>
+  <h2>Raccourcis</h2>
+  <div class="links">
+    <a href="#" onclick="go('vt');return false">Val Thorens</a>
+    <a href="#" onclick="go('shop');return false">Boutique</a>
+    <a href="#" onclick="install();return false">Sur mon écran</a>
+  </div>
+  <h2>Réglages</h2>
+  <div class="card">
+    <div class="row"><span>Alerte billetterie</span><button class="sw" data-k="alert" aria-label="Alerte billetterie"></button></div>
+    <div class="row"><span>Préventes du festival</span><button class="sw" data-k="presale" aria-label="Préventes du festival"></button></div>
+    <div class="row"><span>Rappel le jour J</span><button class="sw" data-k="dday" aria-label="Rappel le jour J"></button></div>
+  </div>
+  <div class="pad"><button class="btn ghost" onclick="wipe()">Effacer mes données</button></div>
+</section>
+
+<!-- ESPACE ORGA -->
+<section id="orga">
+  <h2>Espace orga</h2>
+  <p class="mut pad" style="margin:-4px 0 12px">Chiffres fictifs pour la démo.</p>
+  <div class="kpi">
+    <div><b>842</b><span class="mut">billets vendus · Churascaia</span></div>
+    <div><b>132</b><span class="mut">intéressés Shotgun</span></div>
+    <div><b>311</b><span class="mut">pré-inscrits Val Thorens</span></div>
+    <div><b>4,7★</b><span class="mut">note du 29 août</span></div>
+  </div>
+  <div class="card"><b class="u" style="font-size:12px">D'où vient le public</b><div id="cities"></div></div>
+  <div class="card"><b class="u" style="font-size:12px">Artistes les plus attendus</b><div id="wanted"></div></div>
+  <div class="card">
+    <b class="u" style="font-size:12px">Notification</b>
+    <input type="text" id="push" placeholder="Ex : Last call billets, -50 places !" style="width:100%;margin:10px 0">
+    <button class="btn" onclick="sendPush()">Envoyer aux abonnés</button>
+    <button class="btn ghost" onclick="csv()">Exporter les pré-inscrits (CSV)</button>
+  </div>
+</section>
+
+<nav id="nav">
+  <button data-t="home" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+  <button data-t="events"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Soirées</button>
+  <button data-t="lineup"><svg viewBox="0 0 24 24"><circle cx="9" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M12 18V5l9-2v13"/></svg>Line-up</button>
+  <button data-t="moments"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/></svg>Moments</button>
+  <button data-t="jourj"><svg viewBox="0 0 24 24"><path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z"/></svg>Jour J</button>
+  <button data-t="moi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Moi</button>
+</nav>
+<div id="toast"></div>
+
+<script>
+const SHOTGUN = 'https://shotgun.live/fr/events/';
+// Source : Shotgun « Disconnect Music » + Instagram @disconnect.music_ (relevé le 12/10/2026)
+const EVENTS = [
+  {id:'churascaia', name:'Sidney Charles', place:'La Churascaia · Vauvert', date:'2026-11-10T22:00', end:'2026-11-11T05:00', img:'1-sidney-affiche', price:'13,99 €',
+   url:SHOTGUN+'disconnect-la-churascaia-10-11-26', lineup:['Sidney Charles','Martino & Berth','TIBO KSRG','South Connection']},
+  {id:'vt27', name:'Disconnect Festival', place:'Val Thorens · Malaysia & La Folie Douce', date:'2027-01-09T16:00', end:'2027-01-14T23:59', label:'9 → 14 janv. 2027', img:'4-festival-vt',
+   url:'https://shotgun.live/venues/disconnect-music', lineup:[], prereg:true},
+  {id:'aout26', name:'Disconnect Festival', place:'Le Clos de Provence', date:'2026-08-29T18:00', img:'10-festival-aout',
+   lineup:['Mandragora','Martino & Berth','South Connection','Llinares','Maxime Dangles','Delon']},
+  {id:'mai26', name:'Open Air · Julian Fijma', place:'Le Clos de Provence', date:'2026-05-13T20:00', img:'3-foule-scene',
+   lineup:['Julian Fijma','Martino & Berth','Germain Rojo','Thöm','SAMY EL.A','Sandrop','Kai Jay']},
+  {id:'mars26', name:'Tony Romera', place:'Le Clos de Provence', date:'2026-03-07T22:00', img:'7-aftermovie-1',
+   lineup:['Tony Romera','Martino & Berth']},
+];
+// Artistes listés par Shotgun (« ils ont joué ici ») sans édition précise
+const OTHERS = ['Chicks Luv Us','Cam Stockman','Joe Rolét','Ryan Resso'];
+const POSTS = [
+  ['DeXAHZpILKI','1-sidney-affiche','10.11 · Churascaia'],['DeMwL3zCLUU','2-sidney-portrait','Sidney Charles'],
+  ['Ddyb6puINq7','3-foule-scene','Aftermovie','reel'],['Ddg9Ic7IbkJ','4-festival-vt','Festival VT'],
+  ['DdW1v0ZCA6o','5-club-sombre','Dans le noir'],['DdJx9wGoskV','6-churascaia-teaser','Teaser'],
+  ['DctnCJ-CN4L','7-aftermovie-1','29 août'],['DcoEFsloPgP','8-aftermovie-2','29 août','reel'],
+  ['DcglnZjCAG-','9-aftermovie-3','29 août'],['DcG0-Jeo3qB','10-festival-aout','Line-up 29 août'],
+  ['Db3hv9bCH3-','11-post-aout','Clos de Provence'],['Db0LOBiorIk','12-reel-aout','Annonce','reel'],
+];
+const LEVELS = [[0,'Curieux·se','Coche les soirées où tu étais.'],[1,'Connecté·e','Bienvenue dans la famille.'],[2,'Habitué·e','Tu connais le chemin du Clos.'],[3,'Disconnected','Tu fais partie des murs.'],[5,'Légende DC','Toutes les nuits, sans exception.']];
+const POLL = [['Mochakk',184],['Chris Stussy',151],['Retour de Mandragora',122],['Hugo Massien',97]]; // votes fictifs (démo)
+const SETS = [['22:00','South Connection'],['23:30','TIBO KSRG'],['01:00','Sidney Charles'],['03:00','Martino & Berth'],['05:00','Fermeture']];
+const FAQ = [
+  ['Âge minimum','Soirée interdite aux mineurs. Une pièce d\'identité physique peut être demandée à l\'entrée.'],
+  ['Carte Privilège','Elle ne donne pas accès gratuitement au club, mais le parking VIP reste inclus.'],
+  ['Billet','Garde-le dans l\'app Shotgun : le QR est scanné à l\'entrée.'],
+  ['Revente','Passe par la revente officielle Shotgun, jamais par un inconnu.'],
+];
+
+const $ = id => document.getElementById(id);
+const st = (() => { try { return JSON.parse(localStorage.getItem('disconnect') || '{}'); } catch { return {}; } })();
+st.been ||= []; st.fav ||= []; st.sw ||= {};
+const save = () => { try { localStorage.setItem('disconnect', JSON.stringify(st)); } catch {} };
+const fmt = (d, o) => new Date(d).toLocaleDateString('fr-FR', o);
+const now = () => new Date();
+const upcoming = () => EVENTS.filter(e => new Date(e.end || e.date) > now()).sort((a, b) => a.date.localeCompare(b.date));
+const past = () => EVENTS.filter(e => new Date(e.end || e.date) <= now());
+
+function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2400); }
+function go(t) {
+  document.querySelectorAll('section').forEach(s => s.classList.toggle('on', s.id === t));
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  scrollTo(0, 0);
+}
+$('nav').onclick = e => { const b = e.target.closest('button'); if (b) go(b.dataset.t); };
+
+// Accueil
+const NEXT = upcoming()[0] || EVENTS[0];
+$('nx-name').textContent = NEXT.name;
+$('nx-when').textContent = (NEXT.label || fmt(NEXT.date, {weekday:'long', day:'numeric', month:'long'})) + ' · ' + NEXT.place;
+$('nx-buy').href = NEXT.url;
+function tick() {
+  const s = Math.max(0, (new Date(NEXT.date) - now()) / 1000);
+  $('count').innerHTML = [[s / 86400, 'jours'], [s / 3600 % 24, 'heures'], [s / 60 % 60, 'min'], [s % 60, 'sec']]
+    .map(([v, l]) => `<div><b>${String(Math.floor(v)).padStart(2, '0')}</b><span>${l}</span></div>`).join('');
+}
+tick(); setInterval(tick, 1000);
+function prereg() { st.prereg = true; save(); $('prereg').textContent = 'Pré-inscrit·e ✓'; renderMe(); toast('On te prévient dès l\'ouverture des préventes'); }
+if (st.prereg) $('prereg').textContent = 'Pré-inscrit·e ✓';
+function renderPoll() {
+  const voted = st.vote != null, tot = POLL.reduce((a, [, n]) => a + n, 0) + (voted ? 1 : 0);
+  $('poll').innerHTML = '<p class="mut">Vote pour l\'artiste que tu veux voir chez Disconnect.</p>' + POLL.map(([a, n], i) => {
+    const p = Math.round((n + (st.vote === i ? 1 : 0)) / tot * 100);
+    return `<button class="${st.vote === i ? 'me' : ''}" onclick="vote(${i})"><i style="width:${voted ? p : 0}%"></i><span><b>${a}</b>${voted ? p + ' %' : ''}</span></button>`;
+  }).join('');
+}
+function vote(i) { st.vote = i; save(); renderPoll(); toast('Vote enregistré'); }
+function share() {
+  const d = {title:'DISCONNECT.', text:'L\'app Disconnect : soirées, line-up, billets', url:location.href};
+  navigator.share ? navigator.share(d).catch(() => {}) : navigator.clipboard?.writeText(d.url).then(() => toast('Lien copié'));
+}
+
+// Soirées + passeport
+function evCard(e, isPast) {
+  const when = e.label || fmt(e.date, {weekday:'short', day:'numeric', month:'short', year:'numeric'});
+  const on = st.been.includes(e.id);
+  const action = isPast ? `<button class="been ${on ? 'on' : ''}" onclick="been('${e.id}')">${on ? '✓ J\'y étais' : 'J\'y étais'}</button>`
+    : e.prereg ? `<button class="been" onclick="prereg()">Pré-inscription</button>`
+    : `<a class="been" style="text-decoration:none" href="${e.url}" target="_blank" rel="noopener">Billets · ${e.price}</a>`;
+  return `<div class="card ev"><img src="${e.img}.jpg" alt=""><div class="b">
+    <span class="tag ${isPast ? '' : 'red'}">${when}</span>
+    <h3>${e.name}</h3><div class="mut">${e.place}</div>
+    <div class="lu">${e.lineup.length ? e.lineup.join(' · ') : 'Line-up bientôt dévoilé'}</div>${action}</div></div>`;
+}
+function renderEvents() {
+  $('ev-next').innerHTML = upcoming().map(e => evCard(e, false)).join('');
+  $('ev-past').innerHTML = past().map(e => evCard(e, true)).join('') +
+    '<div class="card"><span class="tag">Janv. 2026</span><h3 class="u" style="font-size:13px;margin:4px 0">Disconnect Festival · Val Thorens</h3><div class="mut">Une semaine de festival au sommet.</div></div>';
+  const n = st.been.length, L = LEVELS.filter(l => n >= l[0]).pop(), nx = LEVELS.find(l => l[0] > n);
+  $('pp-n').textContent = n; $('pp-lvl').textContent = L[1];
+  $('pp-txt').textContent = nx ? `${L[2]} Encore ${nx[0] - n} pour « ${nx[1]} ».` : L[2];
+  $('pp-bar').style.width = Math.min(100, n / 5 * 100) + '%';
+}
+function been(id) { const i = st.been.indexOf(id); i < 0 ? st.been.push(id) : st.been.splice(i, 1); save(); renderEvents(); renderMe(); }
+
+// Line-up
+const ARTISTS = {};
+EVENTS.forEach(e => e.lineup.forEach(a => (ARTISTS[a] ||= []).push(e)));
+OTHERS.forEach(a => ARTISTS[a] ||= []);
+$('nb-art').textContent = Object.keys(ARTISTS).length;
+let filter = 'all';
+$('chips').innerHTML = [['all', 'Tous'], ['fav', '★ Favoris'], ...EVENTS.filter(e => e.lineup.length).map(e => [e.id, fmt(e.date, {day:'numeric', month:'short'})])]
+  .map(([k, l]) => `<button data-k="${k}" class="${k === 'all' ? 'on' : ''}">${l}</button>`).join('');
+$('chips').onclick = e => { const b = e.target.closest('button'); if (!b) return; filter = b.dataset.k; [...$('chips').children].forEach(c => c.classList.toggle('on', c === b)); renderArtists(); };
+function renderArtists() {
+  const q = $('q').value.trim().toLowerCase();
+  const list = Object.entries(ARTISTS).filter(([a, evs]) =>
+    a.toLowerCase().includes(q) && (filter === 'all' || (filter === 'fav' ? st.fav.includes(a) : evs.some(e => e.id === filter))));
+  $('arts').innerHTML = list.map(([a, evs], i) => `<div class="art"><div class="av">${a.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase()}</div>
+    <div><b>${a}</b><span class="mut">${evs.length ? evs.map(e => fmt(e.date, {day:'numeric', month:'short', year:'2-digit'})).join(' · ') : 'Déjà passé·e chez Disconnect'}</span></div>
+    <button class="fav ${st.fav.includes(a) ? 'on' : ''}" data-a="${a}" aria-label="Favori">★</button></div>`).join('') || '<p class="mut pad">Aucun artiste.</p>';
+}
+$('arts').onclick = e => { const b = e.target.closest('.fav'); if (!b) return; const a = b.dataset.a, i = st.fav.indexOf(a); i < 0 ? st.fav.push(a) : st.fav.splice(i, 1); save(); renderArtists(); renderMe(); };
+
+// Moments
+$('grid').innerHTML = POSTS.map(([code, img, cap, type]) =>
+  `<a href="https://www.instagram.com/${type || 'p'}/${code}/" target="_blank" rel="noopener"><img loading="lazy" src="${img}.jpg" alt="${cap}"><span>${type ? '▶ ' : ''}${cap}</span></a>`).join('');
+
+// Jour J
+(function drawQR() { // ponytail: faux QR décoratif pour la démo, le vrai billet vient de Shotgun
+  const c = $('qr').getContext('2d'); let s = 7;
+  const r = () => (s = s * 16807 % 2147483647) / 2147483647;
+  for (let y = 0; y < 29; y++) for (let x = 0; x < 29; x++) {
+    const f = [[0, 0], [22, 0], [0, 22]].find(([a, b]) => x >= a && x < a + 7 && y >= b && y < b + 7);
+    let on = r() > .5;
+    if (f) { const dx = x - f[0], dy = y - f[1]; on = dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx > 1 && dx < 5 && dy > 1 && dy < 5); }
+    c.fillStyle = on ? '#000' : '#fff'; c.fillRect(x, y, 1, 1);
+  }
+})();
+function renderSets() {
+  const base = new Date('2026-11-10T00:00'), t = now();
+  const at = hm => { const [h, m] = hm.split(':').map(Number); return new Date(+base + ((h < 12 ? h + 24 : h) * 60 + m) * 60000); };
+  $('tl').innerHTML = SETS.map(([h, a], i) => {
+    const s = at(h), e = SETS[i + 1] ? at(SETS[i + 1][0]) : s, cls = t >= s && t < e ? 'live' : t >= e ? 'past' : '';
+    return `<div class="${cls}"><b>${h}</b> · ${a}${cls === 'live' ? ' <span class="tag red">en ce moment</span>' : ''}</div>`;
+  }).join('');
+}
+renderSets(); setInterval(renderSets, 60000);
+$('faq').innerHTML = FAQ.map(([q, a]) => `<details><summary>${q}</summary><p class="mut">${a}</p></details>`).join('');
+const wIcon = c => c === 0 ? '☀️' : c <= 3 ? '⛅' : c <= 48 ? '🌫️' : c <= 67 ? '🌧️' : c <= 77 ? '❄️' : c <= 82 ? '🌦️' : '⛈️';
+fetch('https://api.open-meteo.com/v1/forecast?latitude=43.69&longitude=4.28&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FParis&forecast_days=16')
+  .then(r => r.json()).then(d => {
+    const D = d.daily, i = D.time.indexOf('2026-11-10'), j = i < 0 ? 0 : i;
+    $('meteo').innerHTML = `<div class="row"><span>${i < 0 ? 'Aujourd\'hui' : 'Mar. 10 nov.'} ${wIcon(D.weathercode[j])}</span><span>${Math.round(D.temperature_2m_min[j])}° / ${Math.round(D.temperature_2m_max[j])}°</span></div>
+      <p class="mut" style="margin-top:8px">${i < 0 ? 'La météo du 10 novembre s\'affiche ici 16 jours avant.' : 'Les nuits sont fraîches en novembre : prévois une veste pour la sortie.'}</p>`;
+  }).catch(() => $('meteo').innerHTML = '<span class="mut">Météo indisponible hors ligne.</span>');
+
+// Moi
+function setName(v) { st.name = v; save(); $('tk-name').textContent = v || 'Invité·e'; }
+function renderMe() {
+  $('name').value = st.name || ''; $('tk-name').textContent = st.name || 'Invité·e';
+  const L = LEVELS.filter(l => st.been.length >= l[0]).pop();
+  $('me-sum').innerHTML = `<div class="row"><span>Niveau</span><b>${L[1]}</b></div><div class="row"><span>Soirées vécues</span><b>${st.been.length}</b></div>
+    <div class="row"><span>Artistes favoris</span><b>${st.fav.length}</b></div><div class="row"><span>Festival Val Thorens</span><b>${st.prereg ? 'pré-inscrit·e' : '—'}</b></div>`;
+  document.querySelectorAll('.sw').forEach(b => b.classList.toggle('on', !!st.sw[b.dataset.k]));
+}
+document.querySelectorAll('.sw').forEach(b => b.onclick = () => { st.sw[b.dataset.k] = !st.sw[b.dataset.k]; save(); renderMe(); toast(st.sw[b.dataset.k] ? 'Activé' : 'Désactivé'); });
+function wipe() { if (!confirm('Effacer ton passeport, tes favoris et tes réglages ?')) return; try { localStorage.removeItem('disconnect'); } catch {} location.reload(); }
+
+// Orga (chiffres fictifs)
+const bars = (el, rows) => { const m = Math.max(...rows.map(r => r[1])); $(el).innerHTML = rows.map(([l, v]) => `<div class="hb"><span>${l}</span><i style="width:${v / m * 50}%"></i><span class="mut">${v}</span></div>`).join(''); };
+bars('cities', [['Montpellier', 312], ['Nîmes', 241], ['Vauvert', 96], ['Arles', 71], ['Avignon', 58], ['Autres', 64]]);
+bars('wanted', POLL);
+function sendPush() { const v = $('push').value.trim(); if (!v) return toast('Écris un message'); $('push').value = ''; toast('Envoyé (démo)'); }
+function csv() {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['prenom,ville,date\nExemple,Montpellier,2026-10-12\n'], {type:'text/csv'}));
+  a.download = 'preinscrits-val-thorens-demo.csv'; a.click();
+}
+
+// Options : Val Thorens jour par jour, lieux, boutique, avis, liste d'attente, ma bande, écran d'accueil
+const VT_DAYS = ['2027-01-09', '2027-01-10', '2027-01-11', '2027-01-12', '2027-01-13', '2027-01-14'];
+const APRES = ['2027-01-10', '2027-01-13']; // ponytail: jours d'après-ski supposés, à remplacer par le vrai programme
+st.vt ||= [];
+function renderVT() {
+  $('vt-days').innerHTML = VT_DAYS.map(d => {
+    const ap = APRES.includes(d), on = st.vt.includes(d);
+    return `<div class="card day ${ap ? 'ap' : ''}"><div class="d">${fmt(d, {day:'2-digit'})}<small>${fmt(d, {weekday:'short'})}</small></div>
+      <div class="b">${ap ? '<span class="tag red">Après-ski · La Folie Douce</span><br>' : ''}<b>Nuit au Malaysia</b><div class="mut">Line-up bientôt dévoilé</div></div>
+      <button class="been ${on ? 'on' : ''}" onclick="vtRemind('${d}')">${on ? '✓ Rappel' : 'Rappel'}</button></div>`;
+  }).join('');
+}
+function vtRemind(d) { const i = st.vt.indexOf(d); i < 0 ? st.vt.push(d) : st.vt.splice(i, 1); save(); renderVT(); toast(i < 0 ? 'Rappel activé pour ce jour' : 'Rappel retiré'); }
+
+const PLACES = [
+  ['Le Clos de Provence', 'Nîmes · nos open airs d\'été', 'Le Clos de Provence Nîmes'],
+  ['La Churascaia', 'Vauvert · le 10 novembre', 'La Churascaia Vauvert'],
+  ['Malaysia & La Folie Douce', 'Val Thorens · le festival d\'hiver', 'Malaysia Val Thorens'],
+];
+$('places').innerHTML = PLACES.map(([n, s, q]) => `<div class="row"><div><b>${n}</b><div class="mut">${s}</div></div>
+  <a class="been" style="text-decoration:none" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}">Plan</a></div>`).join('');
+
+const SHOP = [['T-shirt néon DC', '30 €', 'logo'], ['Casquette DISCONNECT', '25 €', '🧢'], ['Hoodie Val Thorens', '55 €', '❄️'], ['Tote bag Vinyl Stage', '15 €', '💿']]; // produits fictifs (démo)
+$('shop-list').innerHTML = SHOP.map(([n, p, i]) => `<div><div class="pic">${i === 'logo' ? '<img src="logo.jpg" alt="">' : i}</div><b>${n}</b><span class="mut">${p}</span>
+  <button onclick="toast('Commande : dans la version officielle')">Commander</button></div>`).join('');
+
+function renderStars() { $('stars').innerHTML = [1, 2, 3, 4, 5].map(i => `<button class="${i <= (st.note || 0) ? 'on' : ''}" onclick="st.note=${i};save();renderStars()" aria-label="${i} sur 5">★</button>`).join(''); }
+$('review').value = st.review || '';
+function sendReview() { if (!st.note) return toast('Choisis une note'); st.review = $('review').value.trim(); save(); toast('Merci pour ton avis 🔌'); }
+
+function waitlist() { st.wait = !st.wait; save(); $('wait').textContent = st.wait ? '✓ Sur la liste d\'attente' : 'Liste d\'attente'; toast(st.wait ? 'Tu seras prévenu·e si une place se libère' : 'Retiré·e de la liste'); }
+if (st.wait) $('wait').textContent = '✓ Sur la liste d\'attente';
+
+const MEET = ['L\'entrée', 'Le bar', 'Devant la scène', 'Le parking', 'Le vestiaire'];
+st.meet ??= 0;
+function renderMeet() { $('meet').innerHTML = MEET.map((m, i) => `<button class="${i === st.meet ? 'on' : ''}" onclick="st.meet=${i};save();renderMeet()">${m}</button>`).join(''); }
+function shareMeet() {
+  const t = `On se retrouve à ${MEET[st.meet].toLowerCase()} · Disconnect à La Churascaia 🔌`;
+  navigator.share ? navigator.share({text:t}).catch(() => {}) : navigator.clipboard?.writeText(t).then(() => toast('Message copié, colle-le à ta bande'));
+}
+
+function install() {
+  toast(/iPhone|iPad/.test(navigator.userAgent) ? 'Safari : Partager ⬆️ puis « Sur l\'écran d\'accueil »' : 'Menu du navigateur ⋮ puis « Ajouter à l\'écran d\'accueil »');
+}
+
+renderVT(); renderStars(); renderMeet();
+renderPoll(); renderEvents(); renderArtists(); renderMe();
+if (location.search.includes('cap')) document.body.classList.add('cap'); // captures pour la présentation
+const tab = new URLSearchParams(location.search).get('tab'); if (tab && $(tab)) go(tab);
+if (location.search.includes('test')) {
+  console.assert(upcoming().length === 0 || NEXT === upcoming()[0], 'prochaine soirée');
+  console.assert(Object.keys(ARTISTS).length > 15, 'artistes');
+  console.assert(document.querySelectorAll('#grid a').length === 12, 'moments');
+  console.log('selftest ok');
+}
+</script>
+</body>
+</html>
