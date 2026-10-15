@@ -214,6 +214,36 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
 #story{position:fixed;inset:0;z-index:15;background:#000;display:none;max-width:480px;margin:0 auto}
 #story.on{display:block}
 #story img{width:100%;height:100%;object-fit:cover}
+#story video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+#story video[hidden],#story>img[hidden],#story .ft[hidden]{display:none}
+#st-txt{position:absolute;left:16px;right:16px;bottom:120px;z-index:2;text-align:center;font:800 24px/1.2 Unbounded,sans-serif;text-transform:uppercase;color:#fff;text-shadow:0 2px 12px #000,0 0 18px rgba(255,36,51,.9)}
+/* Onglet Stories en direct */
+.livepill{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font:700 10px Inter,sans-serif;letter-spacing:.15em;color:#fff;background:var(--red);border-radius:999px;padding:4px 9px;box-shadow:var(--glow)}
+.livepill i{width:7px;height:7px;border-radius:50%;background:#fff;animation:lpulse 1.4s infinite}
+@keyframes lpulse{50%{opacity:.25}}
+.prof{display:flex;align-items:center;gap:14px}
+.prof .av{width:74px;height:74px;border-radius:50%;padding:3px;background:conic-gradient(var(--red),#ff7a85,var(--red));box-shadow:var(--glow);flex:none}
+.prof .av.seen{background:#333;box-shadow:none}
+.prof .av img{width:100%;height:100%;border-radius:50%;border:3px solid var(--card);display:block;object-fit:cover}
+.lgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 12px}
+.lgrid button{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#000;border:1.5px solid var(--line);text-align:left;color:#fff}
+.lgrid button.new{border-color:var(--red);box-shadow:0 0 6px rgba(255,36,51,.9),0 0 18px rgba(255,36,51,.4)}
+.lgrid img,.lgrid video{width:100%;height:100%;object-fit:cover;display:block}
+.lgrid .t{position:absolute;top:8px;left:8px;font:700 10px Inter,sans-serif;background:rgba(0,0,0,.6);border-radius:999px;padding:3px 8px}
+.lgrid .n{position:absolute;top:8px;right:8px;font:700 9px Inter,sans-serif;letter-spacing:.1em;background:var(--red);border-radius:999px;padding:3px 7px;box-shadow:var(--glow)}
+.lgrid .c{position:absolute;left:0;right:0;bottom:0;padding:30px 10px 10px;background:linear-gradient(transparent,rgba(0,0,0,.85));font:800 12px/1.25 Unbounded,sans-serif;text-transform:uppercase}
+.lgrid .v{position:absolute;top:34px;left:8px;font-size:11px}
+.how div{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+.how div:last-child{border:0}
+.how b{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--red);box-shadow:var(--glow);display:grid;place-items:center;font:800 12px Unbounded,sans-serif;color:var(--red)}
+nav button{position:relative}
+nav .dot{position:absolute;top:-2px;left:calc(50% + 6px);min-width:16px;height:16px;border-radius:9px;background:var(--red);color:#fff;font:700 9px/16px Inter,sans-serif;padding:0 4px;box-shadow:0 0 0 2px var(--bg),var(--glow)}
+nav .dot[hidden]{display:none}
+#notif{position:fixed;left:50%;top:10px;transform:translate(-50%,-140%);width:calc(100% - 20px);max-width:460px;z-index:35;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:18px;background:rgba(20,20,20,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--red);box-shadow:0 12px 30px rgba(0,0,0,.5),var(--glow);transition:transform .45s cubic-bezier(.2,1.3,.4,1);text-align:left;color:var(--txt)}
+#notif.on{transform:translate(-50%,0)}
+#notif img{width:40px;height:40px;border-radius:50%}
+#notif b{display:block;font-size:13px}
+#notif span{font-size:12px;color:var(--mut)}
 #story .bars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:4px;z-index:2}
 #story .bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden}
 #story .bars i b{display:block;height:100%;width:0;background:#fff}
@@ -364,9 +394,30 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
   <div id="arts"></div>
 </section>
 
+<!-- STORIES EN DIRECT -->
+<section id="live">
+  <h2>Stories <span class="livepill"><i></i>EN DIRECT</span></h2>
+  <p class="mut pad" style="margin:-4px 0 14px">Chaque story publiée sur @disconnect.music_ arrive ici toute seule, et reste 24 h, comme sur Instagram.</p>
+  <div class="card prof">
+    <div class="av" id="lv-av"><img src="logo.jpg" alt=""></div>
+    <div style="flex:1;min-width:0"><b>disconnect.music_</b><div class="mut" id="lv-sum"></div></div>
+  </div>
+  <div class="pad" style="margin-bottom:12px"><button class="btn" id="lv-all" onclick="openLive(0)">Tout regarder</button></div>
+  <div class="lgrid" id="lv-grid"></div>
+  <div class="card row" style="padding:12px 16px"><span>Me prévenir à chaque nouvelle story</span><button class="sw" data-k="story" aria-label="Me prévenir à chaque nouvelle story"></button></div>
+  <h2>Comment ça marche</h2>
+  <div class="card how">
+    <div><b>1</b><span>L'orga publie sa story sur Instagram, comme d'habitude. Rien de plus à faire.</span></div>
+    <div><b>2</b><span>L'app la récupère toute seule, en moins de 2 minutes.</span></div>
+    <div><b>3</b><span>Le public la voit ici et reçoit une notification.</span></div>
+    <div><b>4</b><span>Elle disparaît au bout de 24 h, comme sur Instagram.</span></div>
+  </div>
+  <div class="pad"><button class="btn ghost" onclick="simStory()">▶ Démo : simuler une story de l'orga</button><p class="mut" style="margin-top:8px;text-align:center" id="lv-note"></p></div>
+</section>
+
 <!-- MOMENTS -->
 <section id="moments">
-  <h2>Stories</h2>
+  <h2>À la une</h2>
   <div class="stories" id="stories"></div>
   <h2>Moments</h2>
   <p class="mut pad" style="margin:-4px 0 12px">Les dernières publications de @disconnect.music_. Touche une photo pour l'ouvrir sur Instagram.</p>
@@ -485,6 +536,15 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
   <div class="card"><b class="u" style="font-size:12px">D'où vient le public</b><div id="cities"></div></div>
   <div class="card"><b class="u" style="font-size:12px">Artistes les plus attendus</b><div id="wanted"></div></div>
   <div class="card">
+    <b class="u" style="font-size:12px">Stories Instagram</b>
+    <div class="row"><span>Synchronisation</span><b id="g-sync"></b></div>
+    <div class="row"><span>Stories en ligne</span><b id="g-live"></b></div>
+    <div class="row"><span>Vues dans l'app (24 h)</span><b>624</b></div>
+    <input type="text" id="sim-txt" placeholder="Texte de la story (facultatif)" style="width:100%;margin:10px 0">
+    <button class="btn" onclick="simStory()">Publier une story (simulation)</button>
+    <p class="mut" style="margin-top:8px">En vrai : l'orga publie sur Instagram, l'app la reprend toute seule.</p>
+  </div>
+  <div class="card">
     <b class="u" style="font-size:12px">Notification</b>
     <input type="text" id="push" placeholder="Ex : Last call billets, -50 places !" style="width:100%;margin:10px 0">
     <button class="btn" onclick="sendPush()">Envoyer aux abonnés</button>
@@ -494,6 +554,7 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
 
 <nav id="nav">
   <button data-t="home" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+  <button data-t="live"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-dasharray="4.2 2.4"/><path d="M12 8v8M8 12h8"/></svg>Stories<span class="dot" id="lv-dot" hidden></span></button>
   <button data-t="events"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Soirées</button>
   <button data-t="lineup"><svg viewBox="0 0 24 24"><circle cx="9" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M12 18V5l9-2v13"/></svg>Line-up</button>
   <button data-t="moments"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/></svg>Moments</button>
@@ -502,12 +563,13 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
   <button data-t="moi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Moi</button>
 </nav>
 <div id="story" role="dialog" aria-label="Story">
-  <img id="st-img" alt="">
+  <img id="st-img" alt=""><video id="st-vid" playsinline muted hidden></video><div id="st-txt"></div>
   <div class="bars" id="st-bars"></div>
   <div class="hd"><img src="logo.jpg" alt=""><span id="st-name"></span><button onclick="closeStory()" aria-label="Fermer">×</button></div>
   <div class="nav"><button onclick="stStep(-1)" aria-label="Précédente"></button><button onclick="stStep(1)" aria-label="Suivante"></button></div>
-  <div class="ft">Démo : dans la version officielle, les vraies stories Instagram de @disconnect.music_ arrivent ici automatiquement.</div>
+  <div class="ft" id="st-ft">Démo : dans la version officielle, les vraies stories Instagram de @disconnect.music_ arrivent ici automatiquement.</div>
 </div>
+<button id="notif" onclick="openNotif()"><img src="logo.jpg" alt=""><div><b>Disconnect a publié une story</b><span>à l'instant · touche pour la voir</span></div></button>
 <div id="toast"></div>
 
 <script>
@@ -736,10 +798,40 @@ const TXT = [
   ['On se retrouve à devant la scène', 'Meet me in front of the stage', 'Nos vemos delante del escenario', 'Wir treffen uns vor der Bühne'],
   ['On se retrouve à le parking', 'Meet me at the car park', 'Nos vemos en el parking', 'Wir treffen uns auf dem Parkplatz'], ['On se retrouve à le vestiaire', 'Meet me at the cloakroom', 'Nos vemos en el guardarropa', 'Wir treffen uns an der Garderobe'],
   ['Disconnect à La Churascaia 🔌', 'Disconnect at La Churascaia 🔌', 'Disconnect en La Churascaia 🔌', 'Disconnect in La Churascaia 🔌'],
+  // Stories en direct
+  ['Stories', 'Stories', 'Stories', 'Stories'], ['EN DIRECT', 'LIVE', 'EN DIRECTO', 'LIVE'], ['Tout regarder', 'Watch all', 'Ver todas', 'Alle ansehen'], ['À la une', 'Highlights', 'Destacadas', 'Highlights'],
+  ['Chaque story publiée sur @disconnect.music_ arrive ici toute seule, et reste 24 h, comme sur Instagram.', 'Every story posted on @disconnect.music_ shows up here by itself and stays 24 h, just like on Instagram.', 'Cada story publicada en @disconnect.music_ llega aquí sola y dura 24 h, como en Instagram.', 'Jede Story von @disconnect.music_ erscheint hier automatisch und bleibt 24 Std., wie auf Instagram.'],
+  ['Me prévenir à chaque nouvelle story', 'Notify me of every new story', 'Avisarme de cada nueva story', 'Bei jeder neuen Story benachrichtigen'],
+  ['Comment ça marche', 'How it works', 'Cómo funciona', 'So funktioniert\'s'],
+  ['L\'orga publie sa story sur Instagram, comme d\'habitude. Rien de plus à faire.', 'The organisers post their story on Instagram as usual. Nothing else to do.', 'La organización publica su story en Instagram, como siempre. Nada más que hacer.', 'Die Veranstalter posten ihre Story wie gewohnt auf Instagram. Sonst nichts zu tun.'],
+  ['L\'app la récupère toute seule, en moins de 2 minutes.', 'The app picks it up by itself in under 2 minutes.', 'La app la recoge sola en menos de 2 minutos.', 'Die App holt sie sich selbst, in unter 2 Minuten.'],
+  ['Le public la voit ici et reçoit une notification.', 'The crowd sees it here and gets a notification.', 'El público la ve aquí y recibe una notificación.', 'Das Publikum sieht sie hier und bekommt eine Benachrichtigung.'],
+  ['Elle disparaît au bout de 24 h, comme sur Instagram.', 'It disappears after 24 h, just like on Instagram.', 'Desaparece a las 24 h, como en Instagram.', 'Sie verschwindet nach 24 Std., wie auf Instagram.'],
+  ['▶ Démo : simuler une story de l\'orga', '▶ Demo: simulate a story from the organisers', '▶ Demo: simular una story de la organización', '▶ Demo: Story der Veranstalter simulieren'],
+  ['Stories réelles, synchronisées depuis Instagram.', 'Real stories, synced from Instagram.', 'Stories reales, sincronizadas desde Instagram.', 'Echte Stories, von Instagram synchronisiert.'],
+  ['Démo : stories d\'exemple faites avec les photos du compte.', 'Demo: sample stories made with the account\'s photos.', 'Demo: stories de ejemplo hechas con las fotos de la cuenta.', 'Demo: Beispiel-Stories aus den Fotos des Accounts.'],
+  ['Active · toutes les 2 min', 'On · every 2 min', 'Activa · cada 2 min', 'Aktiv · alle 2 Min.'], ['Démo (compte pas encore relié)', 'Demo (account not linked yet)', 'Demo (cuenta aún no vinculada)', 'Demo (Account noch nicht verbunden)'],
+  ['NOUVEAU', 'NEW', 'NUEVO', 'NEU'], ['Pas de story en ce moment', 'No story right now', 'No hay stories ahora', 'Gerade keine Story'],
+  ['Pas de story en ce moment. Active les notifications pour être prévenu·e.', 'No story right now. Turn on notifications to be told.', 'No hay stories ahora. Activa las notificaciones para enterarte.', 'Gerade keine Story. Aktiviere Benachrichtigungen, um nichts zu verpassen.'],
+  ['à l\'instant', 'just now', 'ahora mismo', 'gerade eben'], ['touche pour la voir', 'tap to watch', 'toca para verla', 'tippen zum Ansehen'],
+  ['Disconnect a publié une story', 'Disconnect posted a story', 'Disconnect ha publicado una story', 'Disconnect hat eine Story gepostet'],
+  ['Stories Instagram', 'Instagram stories', 'Stories de Instagram', 'Instagram-Stories'], ['Synchronisation', 'Sync', 'Sincronización', 'Synchronisierung'], ['Stories en ligne', 'Stories online', 'Stories en línea', 'Stories online'],
+  ['Vues dans l\'app (24 h)', 'Views in the app (24 h)', 'Vistas en la app (24 h)', 'Aufrufe in der App (24 Std.)'], ['Texte de la story (facultatif)', 'Story text (optional)', 'Texto de la story (opcional)', 'Story-Text (optional)'],
+  ['Publier une story (simulation)', 'Post a story (simulation)', 'Publicar una story (simulación)', 'Story posten (Simulation)'],
+  ['En vrai : l\'orga publie sur Instagram, l\'app la reprend toute seule.', 'For real: the organisers post on Instagram, the app picks it up by itself.', 'En la versión real: la organización publica en Instagram y la app la recoge sola.', 'In echt: Die Veranstalter posten auf Instagram, die App übernimmt sie automatisch.'],
+  ['Story publiée sur Instagram (simulation)…', 'Story posted on Instagram (simulation)…', 'Story publicada en Instagram (simulación)…', 'Story auf Instagram gepostet (Simulation)…'],
+  ['Val Thorens, on arrive', 'Val Thorens, here we come', 'Val Thorens, allá vamos', 'Val Thorens, wir kommen'], ['10.11 · billets en bio', '10.11 · tickets in bio', '10.11 · entradas en la bio', '10.11 · Tickets in der Bio'],
+  ['Sidney Charles en approche', 'Sidney Charles is coming', 'Sidney Charles se acerca', 'Sidney Charles kommt'], ['Vous êtes prêts ?', 'Are you ready?', '¿Estáis listos?', 'Seid ihr bereit?'],
+  ['Ça commence à se remplir', 'It\'s filling up', 'Se está llenando', 'Es wird voll'], ['Sidney Charles est arrivé', 'Sidney Charles has arrived', 'Sidney Charles ha llegado', 'Sidney Charles ist da'],
+  ['Les mains en l\'air', 'Hands in the air', 'Manos arriba', 'Hände hoch'], ['Merci la famille', 'Thank you, family', 'Gracias, familia', 'Danke, Familie'], ['Prochaine date bientôt', 'Next date soon', 'Próxima fecha pronto', 'Nächstes Datum bald'],
 ];
 // Textes avec un nombre ou un nom dedans
 const pl = (n, a, b) => +n > 1 ? b : a;
 const RX = [
+  [/^il y a (\d+) min$/, n => ({en:`${n} min ago`, es:`hace ${n} min`, de:`vor ${n} Min.`}[LANG])],
+  [/^il y a (\d+) h$/, n => ({en:`${n} h ago`, es:`hace ${n} h`, de:`vor ${n} Std.`}[LANG])],
+  [/^(\d+) stories$/, n => n + ' stories'],
+  [/^dernière (.+)$/, t => ({en:'latest ', es:'última ', de:'letzte '}[LANG]) + t],
   [/^(.*?) ?Encore (\d+) pour « (.+) »\.$/, (a, n, b) => [tr(a), {en:`${n} more for “${tr(b)}”.`, es:`${n} más para «${tr(b)}».`, de:`Noch ${n} bis „${tr(b)}“.`}[LANG]].filter(Boolean).join(' ')],
   [/^(\d+) tampons?$/, n => ({en:`${n} ${pl(n, 'stamp', 'stamps')}`, es:`${n} ${pl(n, 'sello', 'sellos')}`, de:`${n} ${pl(n, 'Stempel', 'Stempel')}`}[LANG])],
   [/^(\d+) récompense\(s\)$/, n => ({en:`${n} reward(s)`, es:`${n} recompensa(s)`, de:`${n} Prämie(n)`}[LANG])],
@@ -867,30 +959,89 @@ $('grid').innerHTML = POSTS.map(([code, img, cap, type]) =>
 const STORIES = [['10.11', ['1-sidney-affiche', '2-sidney-portrait', '6-churascaia-teaser']], ['Val Thorens', ['4-festival-vt']],
   ['29 août', ['7-aftermovie-1', '8-aftermovie-2', '9-aftermovie-3', '11-post-aout']], ['Coulisses', ['5-club-sombre', '3-foule-scene']], ['Open Air', ['12-reel-aout', '10-festival-aout']]];
 st.seen ||= [];
-let sg = 0, si = 0;
+let GRP = STORIES, sg = 0, si = 0; // GRP = groupes affichés (à la une ou stories en direct)
 function renderStories() {
   $('stories').innerHTML = STORIES.map(([n, imgs], g) => `<button class="${st.seen.includes(n) ? 'seen' : ''}" onclick="openStory(${g})"><div class="ring"><img src="${imgs[0]}.jpg" alt=""></div>${n}</button>`).join('');
 }
 function showStory() {
-  const [n, imgs] = STORIES[sg];
-  $('st-img').src = `${imgs[si]}.jpg`; $('st-name').textContent = n;
-  $('st-bars').innerHTML = imgs.map((_, k) => `<i class="${k < si ? 'done' : k === si ? 'cur' : ''}"><b></b></i>`).join('');
-  $('st-bars').querySelector('.cur b').onanimationend = () => stStep(1);
+  const [n, items] = GRP[sg], it = items[si], o = typeof it === 'string' ? {src: `${it}.jpg`} : it, v = $('st-vid');
+  $('st-name').textContent = o.time ? 'disconnect.music_ · ' + ago(o.time) : tr(n);
+  $('st-txt').textContent = o.txt ? tr(o.txt) : '';
+  $('st-ft').hidden = !!o.real;
+  $('st-bars').innerHTML = items.map((_, k) => `<i class="${k < si ? 'done' : k === si ? 'cur' : ''}"><b></b></i>`).join('');
+  const bar = $('st-bars').querySelector('.cur b');
+  v.pause(); v.hidden = !o.video; $('st-img').hidden = !!o.video;
+  if (o.video) { v.src = o.src; v.onloadedmetadata = () => bar.style.animationDuration = v.duration + 's'; v.play().catch(() => {}); }
+  else $('st-img').src = o.src;
+  bar.onanimationend = () => stStep(1);
+  if (o.id && !st.lseen.includes(o.id)) { st.lseen.push(o.id); save(); }
 }
-function openStory(g) { sg = g; si = 0; $('story').classList.add('on'); showStory(); }
+function openStory(g, groups = STORIES, i = 0) { GRP = groups; sg = g; si = i; $('story').classList.add('on'); showStory(); }
 function stStep(d) {
-  const n = STORIES[sg][0];
   si += d;
   if (si < 0) si = 0;
-  else if (si >= STORIES[sg][1].length) {
-    if (!st.seen.includes(n)) { st.seen.push(n); save(); }
-    if (++sg >= STORIES.length) return closeStory();
+  else if (si >= GRP[sg][1].length) {
+    const n = GRP[sg][0];
+    if (GRP === STORIES && !st.seen.includes(n)) { st.seen.push(n); save(); }
+    if (++sg >= GRP.length) return closeStory();
     si = 0;
   }
   showStory();
 }
-function closeStory() { $('story').classList.remove('on'); $('st-bars').innerHTML = ''; renderStories(); }
-renderStories();
+function closeStory() { $('story').classList.remove('on'); $('st-vid').pause(); $('st-bars').innerHTML = ''; renderStories(); renderLive(); }
+
+// ===== Stories en direct =====
+// Version officielle : sync-stories.py écrit stories.json depuis l'API Instagram (compte pro de Disconnect) toutes les 2 min.
+// Démo (pas de stories.json) : stories d'exemple faites avec les photos du compte + celles « publiées » depuis l'Espace orga.
+st.lseen ||= []; st.posted ||= [];
+const T0 = Date.now(), H = 3600e3;
+const DEMO_LIVE = [['4-festival-vt', 10 * H, 'Val Thorens, on arrive ❄️'], ['1-sidney-affiche', 6 * H, '10.11 · billets en bio 🎟️'], ['5-club-sombre', 2 * H, 'Sidney Charles en approche 🔌'], ['6-churascaia-teaser', 25 * 60e3, 'Vous êtes prêts ? 🔥']]
+  .map(([f, dt, txt]) => ({id: 'demo-' + f, src: `${f}.jpg`, time: new Date(T0 - dt).toISOString(), txt}));
+let LIVE_REAL = null, liveCount = 0;
+function liveList() { // stories de moins de 24 h, de la plus ancienne à la plus récente (comme Instagram)
+  return (LIVE_REAL || [...DEMO_LIVE, ...st.posted]).filter(o => now() - new Date(o.time) < 24 * H).sort((a, b) => a.time.localeCompare(b.time));
+}
+function ago(t) {
+  const m = Math.max(0, Math.round((now() - new Date(t)) / 60e3));
+  return tr(m < 1 ? 'à l\'instant' : m < 60 ? `il y a ${m} min` : `il y a ${Math.floor(m / 60)} h`);
+}
+function renderLive() {
+  const L = liveList(), unseen = L.filter(o => !st.lseen.includes(o.id)).length;
+  $('lv-dot').hidden = !unseen; $('lv-dot').textContent = unseen;
+  $('lv-av').classList.toggle('seen', !unseen);
+  $('lv-sum').textContent = L.length ? `${L.length} stories · dernière ${ago(L[L.length - 1].time)}` : 'Pas de story en ce moment';
+  $('lv-all').hidden = !L.length;
+  $('lv-grid').innerHTML = L.map((o, i) => `<button class="${st.lseen.includes(o.id) ? '' : 'new'}" onclick="openLive(${i})">${o.video ? `<video src="${o.src}" muted playsinline preload="metadata"></video><span class="v">▶</span>` : `<img src="${o.src}" alt="" loading="lazy">`}
+    <span class="t">${ago(o.time)}</span>${st.lseen.includes(o.id) ? '' : '<span class="n">NOUVEAU</span>'}${o.txt ? `<span class="c">${tr(o.txt).replace(/</g, '&lt;')}</span>` : ''}</button>`).join('')
+    || '<p class="mut" style="grid-column:span 2">Pas de story en ce moment. Active les notifications pour être prévenu·e.</p>';
+  $('lv-note').textContent = tr(LIVE_REAL ? 'Stories réelles, synchronisées depuis Instagram.' : 'Démo : stories d\'exemple faites avec les photos du compte.');
+  $('g-sync').textContent = tr(LIVE_REAL ? 'Active · toutes les 2 min' : 'Démo (compte pas encore relié)');
+  $('g-live').textContent = L.length;
+  if (L.length > liveCount && liveCount) notify();
+  liveCount = L.length;
+}
+function openLive(i) { const L = liveList(); if (L.length) openStory(0, [['live', L]], i); }
+async function loadLive() {
+  try {
+    const r = await fetch('stories.json?' + Date.now(), {cache: 'no-store'});
+    if (r.ok) LIVE_REAL = (await r.json()).map(o => ({id: o.id, src: o.url, video: o.type === 'VIDEO', time: o.time, real: true}));
+  } catch {}
+  renderLive();
+}
+let notifT;
+function notify() {
+  navigator.vibrate?.([20, 60, 20]);
+  $('notif').classList.add('on'); clearTimeout(notifT); notifT = setTimeout(() => $('notif').classList.remove('on'), 5000);
+}
+function openNotif() { $('notif').classList.remove('on'); go('live'); openLive(liveList().length - 1); }
+const SIM = [['3-foule-scene', 'Ça commence à se remplir 🔥'], ['2-sidney-portrait', 'Sidney Charles est arrivé 🎧'], ['7-aftermovie-1', 'Les mains en l\'air 🙌'], ['9-aftermovie-3', 'Merci la famille ❤️'], ['12-reel-aout', 'Prochaine date bientôt 🔌']];
+function simStory() { // l'orga publie sur Instagram → la story arrive dans l'app quelques secondes plus tard
+  const [f, t] = SIM[st.posted.length % SIM.length], txt = $('sim-txt').value.trim() || t;
+  $('sim-txt').value = '';
+  toast('Story publiée sur Instagram (simulation)…');
+  setTimeout(() => { st.posted.push({id: 'sim-' + Date.now(), src: `${f}.jpg`, time: new Date().toISOString(), txt}); save(); renderLive(); }, 2500);
+}
+renderStories(); renderLive(); loadLive(); setInterval(loadLive, 60e3);
 
 // Jour J
 function drawQR(id, seed) { // ponytail: faux QR décoratif pour la démo, le vrai billet vient de Shotgun
@@ -1081,7 +1232,11 @@ if (location.search.includes('test')) {
   console.assert(upcoming().length === 0 || NEXT === upcoming()[0], 'prochaine soirée');
   console.assert(Object.keys(ARTISTS).length > 15, 'artistes');
   console.assert(document.querySelectorAll('#grid a').length === 12, 'moments');
-  openStory(0); stStep(1); stStep(1); stStep(1); console.assert(sg === 1 && si === 0, 'stories'); closeStory();
+  const sv = [...st.seen]; openStory(0); stStep(1); stStep(1); stStep(1); console.assert(sg === 1 && si === 0, 'stories'); closeStory(); st.seen = sv; save();
+  const lv = liveList().length; st.posted.push({id: 'test', src: 'logo.jpg', time: new Date().toISOString()}); renderLive();
+  console.assert(liveList().length === lv + 1 && $('notif').classList.contains('on') && !$('lv-dot').hidden, 'stories en direct');
+  st.posted.push({id: 'old', src: 'logo.jpg', time: new Date(Date.now() - 25 * H).toISOString()}); console.assert(liveList().length === lv + 1, 'expiration 24 h');
+  st.posted = st.posted.filter(o => !['test', 'old'].includes(o.id)); save(); $('notif').classList.remove('on'); renderLive();
   const n0 = nStamps(); stamp(); console.assert(nStamps() === n0 + 1 && $('stamps').querySelectorAll('.on').length === Math.min(8, n0 + 1), 'tampons'); st.stamps--; save(); renderLoy();
   console.log('selftest ok');
 }
