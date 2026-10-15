@@ -226,6 +226,15 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
 #story .nav{position:absolute;inset:70px 0 90px;display:flex;z-index:1}
 #story .nav button{flex:1}
 #story .ft{position:absolute;left:0;right:0;bottom:0;padding:40px 16px calc(18px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.85));text-align:center;font-size:12px;color:#ccc;z-index:2}
+/* Pulse Music */
+.pulse-card{display:flex;gap:14px;align-items:center;cursor:pointer;background:radial-gradient(circle at 0% 50%,rgba(255,36,51,.25),transparent 60%),var(--card)}
+.pulse-ic{width:54px;height:54px;flex:none;border-radius:16px;display:grid;place-items:center;font-size:28px;background:#000;border:1.5px solid var(--red);box-shadow:var(--glow)}
+.eq{display:inline-flex;gap:3px;align-items:flex-end;height:16px;margin-left:6px;vertical-align:middle}
+.eq i{width:3px;background:var(--red);box-shadow:var(--glow);animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}.eq i:nth-child(4){animation-delay:.1s}
+@keyframes eq{0%,100%{height:4px}50%{height:16px}}
+.cap .eq i{animation:none;height:10px}
+#pulse-f{display:block;width:100%;height:68vh;min-height:460px;border:0;border-radius:12px;background:#000}
 </style>
 </head>
 <body>
@@ -256,6 +265,14 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
       <button class="btn" id="prereg" onclick="prereg()">Me pré-inscrire</button>
       <button class="btn ghost" onclick="go('vt')">Le programme jour par jour</button>
     </div>
+  </div>
+
+  <h2>Les sons du moment</h2>
+  <div class="card pulse-card neon" onclick="go('pulse')">
+    <div class="pulse-ic">🎧</div>
+    <div style="flex:1"><b class="u" style="font-size:13px">Pulse Music<span class="eq"><i></i><i></i><i></i><i></i></span></b>
+      <div class="mut">Les tops de la musique électronique : Afro House, Melodic, Deep House…</div></div>
+    <span class="been">Écouter</span>
   </div>
 
   <h2>Nos lieux</h2>
@@ -300,6 +317,15 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
     </div>
   </div>
 
+</section>
+
+<!-- PULSE MUSIC (depuis l'accueil et Moi) -->
+<section id="pulse">
+  <h2>Pulse Music<span class="eq"><i></i><i></i><i></i><i></i></span></h2>
+  <p class="mut pad" style="margin:-4px 0 12px">Les classements de la musique électronique dans le monde : écoute les morceaux qui font danser les clubs, par genre et par pays.</p>
+  <div class="card neon" style="padding:6px"><iframe id="pulse-f" title="Pulse Music" allow="autoplay; encrypted-media; fullscreen"></iframe></div>
+  <div class="pad"><a class="btn" href="https://azizbena-stack.github.io/pm-a7k3x9/" target="_blank" rel="noopener">Ouvrir Pulse Music en plein écran</a>
+  <button class="btn ghost" onclick="go('home')">Retour</button></div>
 </section>
 
 <!-- BOUTIQUE -->
@@ -431,6 +457,7 @@ header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px soli
   <div class="links">
     <a href="#" onclick="go('vt');return false">Val Thorens</a>
     <a href="#" onclick="go('shop');return false">Boutique</a>
+    <a href="#" onclick="go('pulse');return false">🎧 Pulse Music</a>
     <a href="#" onclick="install();return false">Sur mon écran</a>
   </div>
   <h2>Réglages</h2>
@@ -618,6 +645,7 @@ const TXT = [
   ['Les nuits sont fraîches en novembre : prévois une veste pour la sortie.', 'Nights are chilly in November: bring a jacket for the way out.', 'Las noches son frescas en noviembre: lleva una chaqueta para la salida.', 'Die Nächte im November sind kühl: nimm eine Jacke für den Heimweg mit.'],
   ['Météo indisponible hors ligne.', 'Weather unavailable offline.', 'Tiempo no disponible sin conexión.', 'Wetter offline nicht verfügbar.'], ['Chargement…', 'Loading…', 'Cargando…', 'Wird geladen…'],
   ['Y aller', 'Getting there', 'Cómo llegar', 'Anfahrt'], ['🕙 Horaires', '🕙 Opening hours', '🕙 Horario', '🕙 Uhrzeiten'],
+  ['🚗 Parking VIP', '🚗 VIP parking', '🚗 Parking VIP', '🚗 VIP-Parkplatz'], ['Notification', 'Notification', 'Notificación', 'Benachrichtigung'],
   ['inclus avec la Carte Privilège', 'included with the Privilege Card', 'incluido con la Tarjeta Privilegio', 'inklusive mit der Privilege-Karte'],
   ['Itinéraire', 'Directions', 'Cómo llegar', 'Route'], ['Covoiturage', 'Carpooling', 'Coche compartido', 'Mitfahren'],
   ['Navette Disconnect', 'Disconnect shuttle', 'Lanzadera Disconnect', 'Disconnect-Shuttle'],
@@ -671,6 +699,11 @@ const TXT = [
   ['Ex : Last call billets, -50 places !', 'E.g. Last call, 50 tickets left!', 'Ej.: ¡Última llamada, quedan 50 entradas!', 'z. B. Last Call, nur noch 50 Tickets!'],
   ['Envoyer aux abonnés', 'Send to subscribers', 'Enviar a los suscriptores', 'An Abonnent·innen senden'],
   ['Exporter les pré-inscrits (CSV)', 'Export pre-registrations (CSV)', 'Exportar preinscritos (CSV)', 'Vormerkungen exportieren (CSV)'],
+  ['Les sons du moment', 'Sounds of the moment', 'Los sonidos del momento', 'Sounds der Stunde'],
+  ['Les tops de la musique électronique : Afro House, Melodic, Deep House…', 'The top electronic music charts: Afro House, Melodic, Deep House…', 'Los tops de la música electrónica: Afro House, Melodic, Deep House…', 'Die Top-Charts der elektronischen Musik: Afro House, Melodic, Deep House…'],
+  ['Écouter', 'Listen', 'Escuchar', 'Anhören'],
+  ['Les classements de la musique électronique dans le monde : écoute les morceaux qui font danser les clubs, par genre et par pays.', 'Electronic music charts worldwide: listen to the tracks filling dance floors, by genre and by country.', 'Las listas de música electrónica en el mundo: escucha los temas que hacen bailar a los clubs, por género y por país.', 'Die Charts der elektronischen Musik weltweit: hör die Tracks, die die Clubs zum Tanzen bringen, nach Genre und Land.'],
+  ['Ouvrir Pulse Music en plein écran', 'Open Pulse Music full screen', 'Abrir Pulse Music en pantalla completa', 'Pulse Music im Vollbild öffnen'],
   // Lieux, dates, images
   ['29 août', '29 Aug', '29 ago.', '29. Aug.'], ['Line-up 29 août', '29 Aug line-up', 'Line-up 29 ago.', 'Line-up 29. Aug.'], ['9 → 14 janv. 2027', '9 → 14 Jan 2027', '9 → 14 ene. 2027', '9. → 14. Jan. 2027'],
   ['Logo Disconnect', 'Disconnect logo', 'Logo de Disconnect', 'Disconnect-Logo'], ['Le logo néon DC de Disconnect', 'Disconnect\'s neon DC logo', 'El logo neón DC de Disconnect', 'Das DC-Neonlogo von Disconnect'],
@@ -750,6 +783,7 @@ const past = () => EVENTS.filter(e => new Date(e.end || e.date) <= now());
 
 function toast(m) { navigator.vibrate?.(15); const t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2400); }
 function go(t) {
+  if (t === 'pulse' && !$('pulse-f').src) $('pulse-f').src = 'https://azizbena-stack.github.io/pm-a7k3x9/';
   document.querySelectorAll('section').forEach(s => s.classList.toggle('on', s.id === t));
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
   scrollTo(0, 0);
