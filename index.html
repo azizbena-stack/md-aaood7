@@ -61,7 +61,7 @@ section.on{display:block}
 .ev .b{padding:12px 12px 12px 0;flex:1;min-width:0}
 .ev h3{font-size:13px;margin:4px 0}
 .ev .lu{font-size:12px;color:var(--mut);margin:4px 0 8px}
-.been{display:inline-block;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;border:1px solid var(--line)}
+.been{display:inline-block;white-space:nowrap;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;border:1px solid var(--line)}
 .been.on{background:var(--red);border-color:var(--red);box-shadow:var(--glow)}
 .lvl{display:flex;align-items:center;gap:14px}
 .lvl .n{font:800 34px Unbounded;color:var(--red);text-shadow:var(--glow)}
@@ -88,7 +88,7 @@ input[type=search],input[type=text]{width:calc(100% - 32px);margin:0 16px 12px;p
 
 /* Jour J */
 .ticket{background:linear-gradient(160deg,#1a0003,#0b0b0b 60%);border:1px solid var(--red2);border-radius:18px;margin:0 16px 12px;padding:18px;text-align:center;box-shadow:0 0 30px rgba(255,36,51,.15)}
-.ticket canvas{width:170px;height:170px;background:#fff;border:8px solid #fff;border-radius:10px;margin:14px auto 8px;display:block;image-rendering:pixelated}
+.ticket canvas{width:90px;height:90px;transition:width .3s,height .3s;cursor:zoom-in;background:#fff;border:8px solid #fff;border-radius:10px;margin:14px auto 8px;display:block;image-rendering:pixelated}
 .tl{position:relative;margin:0 16px 12px 24px;padding-left:18px;border-left:2px solid var(--line)}
 .tl div{position:relative;padding:8px 0 8px 6px}
 .tl div::before{content:"";position:absolute;left:-25px;top:13px;width:10px;height:10px;border-radius:50%;background:var(--line)}
@@ -116,7 +116,7 @@ details p{margin-top:6px}
 .hb i{height:8px;background:var(--red);border-radius:4px;box-shadow:var(--glow)}
 
 nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:rgba(5,5,5,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:9}
-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--mut)}
+nav button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--mut)}
 nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
 nav .on{color:var(--red)}
 nav .on svg{filter:drop-shadow(0 0 6px rgba(255,36,51,.8))}
@@ -139,14 +139,99 @@ nav .on svg{filter:drop-shadow(0 0 6px rgba(255,36,51,.8))}
 .shop button{margin-top:8px;width:100%;padding:8px;border-radius:999px;border:1px solid var(--red);color:var(--red);font-size:12px;font-weight:700}
 #meet button.on{background:var(--red);border-color:var(--red)}
 .logo{width:34px;height:34px;border-radius:50%}
-header{display:flex;align-items:center;gap:10px;padding:12px 16px}
-header b{font:800 15px Unbounded;letter-spacing:.08em}
-header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+header{display:flex;align-items:center;gap:8px;padding:12px 16px}
+header b{font:800 14px Unbounded;letter-spacing:.06em;white-space:nowrap}
+header select{margin-left:auto;background:var(--card);color:var(--txt);border:1px solid var(--red2);border-radius:999px;padding:6px 4px;font:600 12px Inter,sans-serif}
+header button{font-size:11px;white-space:nowrap;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+/* Carte fidélité */
+.loy{position:relative;margin:0 16px 12px;padding:18px;border-radius:20px;overflow:hidden;aspect-ratio:1.586;display:flex;flex-direction:column;justify-content:space-between;
+  background:radial-gradient(circle at 85% 10%,rgba(255,36,51,.55),transparent 45%),linear-gradient(135deg,#1c1c1c,#050505 55%,#2a0005);border:1px solid #3a3a3a;box-shadow:0 10px 40px rgba(255,36,51,.18),inset 0 1px 0 rgba(255,255,255,.08)}
+.loy::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.09) 50%,transparent 65%);animation:shine 5s infinite}
+.cap .loy::after{animation:none}
+@keyframes shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.loy .top{display:flex;align-items:center;gap:10px}
+.loy .top b{font:800 14px Unbounded;letter-spacing:.1em}
+.loy .tier{margin-left:auto;font:700 10px Unbounded;letter-spacing:.15em;color:var(--red);text-shadow:var(--glow);text-transform:uppercase}
+.loy .pts{font:800 34px Unbounded;line-height:1}
+.loy .pts small{font:600 11px Inter;color:var(--mut);margin-left:6px}
+.loy .bot{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.loy .who{font:600 13px Inter;text-transform:uppercase;letter-spacing:.12em}
+.loy .num{font:500 11px ui-monospace,monospace;color:var(--mut);letter-spacing:.15em;margin-top:2px}
+.loy canvas{width:56px;height:56px;transition:width .3s,height .3s;cursor:zoom-in;position:relative;z-index:1;background:#fff;border:4px solid #fff;border-radius:6px;image-rendering:pixelated;flex:none}
+.stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.stamps div{aspect-ratio:1;border-radius:50%;border:1.5px dashed #3a3a3a;display:grid;place-items:center;font:800 12px Unbounded;color:#444}
+.stamps .on{border:2px solid var(--red);color:#fff;background:radial-gradient(circle,#4a0008,#120002);box-shadow:var(--glow)}
+.stamps .new{animation:pop .5s}
+@keyframes pop{50%{transform:scale(1.25)}}
+.rw{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.rw:last-child{border:0}
+.rw .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#1a1a1a;flex:none;font-size:18px}
+.rw.ok .ic{background:var(--red);box-shadow:var(--glow)}
+.rw .been{margin-left:auto;flex:none}
+.rw:not(.ok){opacity:.55}
+/* Météo des lieux */
+.wx-now{display:flex;align-items:center;gap:14px;margin:12px 0}
+.wx-now .t{font:800 44px Unbounded;line-height:1}
+.wx-now .e{font-size:44px}
+.wx-days{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -4px}
+.wx-days>div{flex:1 0 54px;text-align:center;padding:10px 2px;border:1px solid var(--line);border-radius:12px;font-size:11px}
+.wx-days>div:first-child{border-color:var(--red2)}
+.wx-days b{display:block;font-size:12px}
+.wx-days .e{font-size:20px;margin:4px 0}
+.wx-days .r{color:#6ab0ff;font-size:10px}
+/* Intro */
+#splash{position:fixed;inset:0;z-index:20;background:#000;display:grid;place-items:center;transition:opacity .5s}
+#splash img{width:96px;border-radius:50%;animation:glow 1.2s ease-in-out infinite alternate}
+@keyframes glow{from{box-shadow:0 0 10px rgba(255,36,51,.3)}to{box-shadow:0 0 50px rgba(255,36,51,.9)}}
+#splash.off{opacity:0;pointer-events:none}
+/* Néons autour des photos et vidéos */
+.grid{gap:10px;padding:0 12px}
+.grid a,.neon{border-radius:12px;border:1.5px solid var(--red);box-shadow:0 0 6px rgba(255,36,51,.9),0 0 18px rgba(255,36,51,.45),inset 0 0 12px rgba(255,36,51,.35)}
+.grid a,.neon,.ticket,.loy,.ev,.day.ap{animation:buzz 7s infinite}
+.ticket,.ev,.day.ap{border:1.5px solid var(--red)}
+.ticket canvas.big{width:230px;height:230px;cursor:zoom-out}
+.loy canvas.big{width:150px;height:150px;cursor:zoom-out}
+.loy:has(canvas.big){aspect-ratio:auto;gap:12px}
+.grid a:nth-child(3n+2),.ev:nth-child(2n),.day:nth-child(2n){animation-delay:2.3s}.grid a:nth-child(3n),.ticket,.ev:nth-child(3n){animation-delay:4.1s}.loy{animation-delay:1.2s}
+@keyframes buzz{0%,93%,100%{box-shadow:0 0 6px rgba(255,36,51,.9),0 0 18px rgba(255,36,51,.45),inset 0 0 12px rgba(255,36,51,.35)}94%,96%{box-shadow:none;border-color:#5a0008}95%{box-shadow:0 0 10px rgba(255,36,51,1),0 0 26px rgba(255,36,51,.6)}}
+.cap .grid a,.cap .neon,.cap .ticket,.cap .loy,.cap .ev,.cap .day{animation:none}
+.ev{border-color:var(--red2)}
+.ev img{border-right:1.5px solid var(--red);box-shadow:0 0 14px rgba(255,36,51,.6)}
+/* Navette / concours */
+.bus{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.bus:last-child{border:0}
+.bus b.u{font-size:13px;color:var(--red);text-shadow:var(--glow)}
+.prize{position:relative;overflow:hidden;padding:0}
+.prize img{width:100%;height:150px;object-fit:cover;display:block;opacity:.75}
+.prize .in{padding:16px}
+.prize .tag{position:absolute;top:10px;left:10px;background:var(--red);border-color:var(--red);color:#fff;box-shadow:var(--glow)}
+/* Stories */
+.stories{display:flex;gap:14px;overflow-x:auto;padding:0 16px 16px;scrollbar-width:none}
+.stories button{flex:none;width:68px;text-align:center;font-size:11px;font-weight:600}
+.stories .ring{width:68px;height:68px;border-radius:50%;padding:3px;background:conic-gradient(var(--red),#ff7a85,var(--red));box-shadow:var(--glow);margin-bottom:6px}
+.stories .seen .ring{background:#333;box-shadow:none}
+.stories img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--bg);display:block}
+#story{position:fixed;inset:0;z-index:15;background:#000;display:none;max-width:480px;margin:0 auto}
+#story.on{display:block}
+#story img{width:100%;height:100%;object-fit:cover}
+#story .bars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:4px;z-index:2}
+#story .bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden}
+#story .bars i b{display:block;height:100%;width:0;background:#fff}
+#story .bars i.done b{width:100%}
+#story .bars i.cur b{animation:fill 5s linear forwards}
+@keyframes fill{to{width:100%}}
+#story .hd{position:absolute;top:22px;left:12px;right:12px;display:flex;align-items:center;gap:10px;z-index:2;font-weight:700;text-shadow:0 1px 4px #000}
+#story .hd img{width:32px;height:32px;border-radius:50%}
+#story .hd button{margin-left:auto;font-size:26px;line-height:1}
+#story .nav{position:absolute;inset:70px 0 90px;display:flex;z-index:1}
+#story .nav button{flex:1}
+#story .ft{position:absolute;left:0;right:0;bottom:0;padding:40px 16px calc(18px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.85));text-align:center;font-size:12px;color:#ccc;z-index:2}
 </style>
 </head>
 <body>
+<div id="splash"><img src="logo.jpg" alt=""></div>
 <div class="demo">Démo · maquette non officielle</div>
-<header><img class="logo" src="logo.jpg" alt="Logo Disconnect"><b>DISCONNECT.</b><button onclick="go('orga')">Espace orga</button></header>
+<header><img class="logo" src="logo.jpg" alt="Logo Disconnect"><b>DISCONNECT.</b><select id="lang" aria-label="Langue" onchange="setLang(this.value)"><option value="fr">FR</option><option value="en">EN</option><option value="es">ES</option><option value="de">DE</option></select><button onclick="go('orga')">Espace orga</button></header>
 
 <!-- ACCUEIL -->
 <section id="home" class="on">
@@ -155,10 +240,15 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
     <div class="over"><div class="k">Prochaine nuit</div><h1 id="nx-name"></h1><div class="mut" id="nx-when"></div></div>
   </div>
   <div class="count" id="count"></div>
-  <div class="pad" style="margin-top:14px"><a class="btn" id="nx-buy" target="_blank" rel="noopener">Prendre mon billet</a></div>
+  <div class="pad" style="margin-top:14px"><a class="btn" id="nx-buy" target="_blank" rel="noopener">Prendre mon billet</a><button class="btn ghost" onclick="ics()">Ajouter à mon agenda</button></div>
+
+  <h2>Ma carte DC</h2>
+  <div class="card" style="display:flex;align-items:center;gap:12px" onclick="go('moi')">
+    <div style="font-size:28px">💳</div><div style="flex:1"><b id="home-loy"></b><div class="mut">1 soirée = 1 tampon · des récompenses à la clé</div></div><span class="been">Voir</span>
+  </div>
 
   <h2>Disconnect Festival</h2>
-  <div class="card" style="padding:0;overflow:hidden">
+  <div class="card neon" style="padding:0;overflow:hidden">
     <img src="4-festival-vt.jpg" alt="Affiche Disconnect Festival Val Thorens" style="width:100%;display:block">
     <div style="padding:16px">
       <div class="u" style="font-size:14px">Val Thorens · 9 → 14 janv. 2027</div>
@@ -193,6 +283,23 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
   <p class="mut pad" style="margin:-4px 0 12px">6 nuits au Malaysia, 2 après-ski à La Folie Douce. UK House, Minimal Deep Tech &amp; Tech-House. Jours indicatifs (démo) : le line-up arrive bientôt.</p>
   <div id="vt-days"></div>
   <div class="pad"><button class="btn ghost" onclick="go('home')">Retour</button></div>
+</section>
+
+<!-- JEU CONCOURS (depuis Moi) -->
+<section id="concours">
+  <h2>Jeu concours</h2>
+  <div class="card prize neon">
+    <img src="2-sidney-portrait.jpg" alt="Sidney Charles"><span class="tag">À gagner</span>
+    <div class="in">
+      <b class="u" style="font-size:14px">2 places pour Sidney Charles</b>
+      <p class="mut" style="margin:6px 0 4px">La Churascaia · 10 novembre. Tirage au sort le <b>5 novembre à 18h</b>. Bonus : chaque pote invité = 1 chance de plus.</p>
+      <p class="mut" id="ct-info" style="margin-bottom:12px"></p>
+      <button class="btn" id="ct-btn" onclick="contest()">Je participe</button>
+      <button class="btn ghost" onclick="contestShare()">Inviter un pote (+1 chance)</button>
+      <p class="mut" style="margin-top:10px;font-size:11px">Concours fictif (démo). Le vrai règlement est fourni par l'organisateur.</p>
+    </div>
+  </div>
+
 </section>
 
 <!-- BOUTIQUE -->
@@ -232,6 +339,8 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
 
 <!-- MOMENTS -->
 <section id="moments">
+  <h2>Stories</h2>
+  <div class="stories" id="stories"></div>
   <h2>Moments</h2>
   <p class="mut pad" style="margin:-4px 0 12px">Les dernières publications de @disconnect.music_. Touche une photo pour l'ouvrir sur Instagram.</p>
   <div class="grid" id="grid"></div>
@@ -244,7 +353,8 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
     <div class="u" style="font-size:10px;color:var(--red);letter-spacing:.25em">Disconnect × La Churascaia</div>
     <div class="u" style="font-size:18px;margin-top:6px">Sidney Charles</div>
     <div class="mut">Mar. 10 nov. 2026 · 22:00 → 05:00</div>
-    <canvas id="qr" width="29" height="29"></canvas>
+    <canvas id="qr" width="29" height="29" onclick="this.classList.toggle('big')" title="Toucher pour agrandir"></canvas>
+    <div class="mut" style="font-size:11px;margin-bottom:6px">Touche le QR pour l'agrandir</div>
     <div class="mut">Billet de démonstration · <span id="tk-name">Invité·e</span></div>
   </div>
   <div class="card">
@@ -269,6 +379,13 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
     <button class="btn ghost" onclick="toast('Covoiturage : dans la version officielle')">Covoiturage</button>
   </div>
 
+  <h2>Navette Disconnect</h2>
+  <div class="card">
+    <p class="mut" style="margin-bottom:6px">Aller-retour sans prendre le volant. Horaires et prix indicatifs (démo).</p>
+    <div id="bus"></div>
+    <p class="mut" style="margin-top:10px">Retours : 03:30 et 05:15 depuis le parking du club.</p>
+  </div>
+
   <h2>Retrouver ma bande</h2>
   <div class="card">
     <p class="mut" style="margin-bottom:10px">Choisis un point de rendez-vous et envoie-le à tes potes.</p>
@@ -291,6 +408,25 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
   <h2>Mon profil</h2>
   <input type="text" id="name" placeholder="Ton prénom" oninput="setName(this.value)">
   <div class="card" id="me-sum"></div>
+  <h2>Ma carte de fidélité</h2>
+  <div class="loy">
+    <div class="top"><img class="logo" src="logo.jpg" alt=""><b>DISCONNECT.</b><span class="tier" id="loy-tier"></span></div>
+    <div class="pts"><span id="loy-pts">0</span><small>points DC</small></div>
+    <div class="bot"><div><div class="who" id="loy-name"></div><div class="num" id="loy-num"></div></div><canvas id="loy-qr" width="29" height="29" onclick="this.classList.toggle('big')"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="row" style="padding-top:0"><b class="u" style="font-size:12px">Mes tampons</b><span class="mut" id="loy-count"></span></div>
+    <div class="stamps" id="stamps"></div>
+    <p class="mut" style="margin-top:12px">Montre ta carte au bar ou à l'entrée : le staff la scanne et tu gagnes un tampon. Chaque « J'y étais » compte aussi.</p>
+    <button class="btn" style="margin-top:12px" onclick="stamp()">Faire tamponner (démo)</button>
+    <button class="btn ghost" onclick="refer()">Parrainer un pote (+1)</button>
+  </div>
+  <h2>Mes récompenses</h2>
+  <div class="card" id="rewards"></div>
+  <div class="pad" style="margin-bottom:12px"><button class="btn ghost" onclick="toast('Wallet : dans la version officielle')">Ajouter au Wallet</button></div>
+  <h2>Météo de nos lieux</h2>
+  <div class="card" id="wx"><div class="chips" id="wx-chips" style="padding:0;flex-wrap:wrap"></div><div id="wx-body"><span class="mut">Chargement…</span></div></div>
+
   <h2>Raccourcis</h2>
   <div class="links">
     <a href="#" onclick="go('vt');return false">Val Thorens</a>
@@ -315,6 +451,8 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
     <div><b>132</b><span class="mut">intéressés Shotgun</span></div>
     <div><b>311</b><span class="mut">pré-inscrits Val Thorens</span></div>
     <div><b>4,7★</b><span class="mut">note du 29 août</span></div>
+    <div><b>486</b><span class="mut">membres carte DC</span></div>
+    <div><b>38 %</b><span class="mut">reviennent dans les 3 mois</span></div>
   </div>
   <div class="card"><b class="u" style="font-size:12px">D'où vient le public</b><div id="cities"></div></div>
   <div class="card"><b class="u" style="font-size:12px">Artistes les plus attendus</b><div id="wanted"></div></div>
@@ -331,9 +469,17 @@ header button{margin-left:auto;font-size:12px;color:var(--mut);border:1px solid 
   <button data-t="events"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Soirées</button>
   <button data-t="lineup"><svg viewBox="0 0 24 24"><circle cx="9" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M12 18V5l9-2v13"/></svg>Line-up</button>
   <button data-t="moments"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/></svg>Moments</button>
+  <button data-t="concours"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13M12 8c-2-4-6-4-6-1.5S10 8 12 8zm0 0c2-4 6-4 6-1.5S14 8 12 8z"/></svg>Concours</button>
   <button data-t="jourj"><svg viewBox="0 0 24 24"><path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z"/></svg>Jour J</button>
   <button data-t="moi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Moi</button>
 </nav>
+<div id="story" role="dialog" aria-label="Story">
+  <img id="st-img" alt="">
+  <div class="bars" id="st-bars"></div>
+  <div class="hd"><img src="logo.jpg" alt=""><span id="st-name"></span><button onclick="closeStory()" aria-label="Fermer">×</button></div>
+  <div class="nav"><button onclick="stStep(-1)" aria-label="Précédente"></button><button onclick="stStep(1)" aria-label="Suivante"></button></div>
+  <div class="ft">Démo : dans la version officielle, les vraies stories Instagram de @disconnect.music_ arrivent ici automatiquement.</div>
+</div>
 <div id="toast"></div>
 
 <script>
@@ -375,12 +521,234 @@ const $ = id => document.getElementById(id);
 const st = (() => { try { return JSON.parse(localStorage.getItem('disconnect') || '{}'); } catch { return {}; } })();
 st.been ||= []; st.fav ||= []; st.sw ||= {};
 const save = () => { try { localStorage.setItem('disconnect', JSON.stringify(st)); } catch {} };
-const fmt = (d, o) => new Date(d).toLocaleDateString('fr-FR', o);
+
+// Langues : l'app est écrite en français, la traduction se fait à l'affichage (textes, attributs, messages).
+// Pour ajouter un texte : une ligne [français, anglais, espagnol, allemand].
+const LANGS = ['fr', 'en', 'es', 'de'], LOC = {fr:'fr-FR', en:'en-GB', es:'es-ES', de:'de-DE'};
+const LANG = LANGS.includes(st.lang) ? st.lang : LANGS.find(l => (navigator.language || '').startsWith(l)) || 'fr';
+const TXT = [
+  // Barre, en-tête, accueil
+  ['Démo · maquette non officielle', 'Demo · unofficial mock-up', 'Demo · maqueta no oficial', 'Demo · inoffizielles Modell'],
+  ['Espace orga', 'Organiser', 'Organizador', 'Veranstalter'],
+  ['Accueil', 'Home', 'Inicio', 'Start'], ['Soirées', 'Events', 'Fiestas', 'Partys'], ['Moments', 'Moments', 'Momentos', 'Momente'],
+  ['Concours', 'Contest', 'Concurso', 'Verlosung'], ['Jour J', 'D-Day', 'Día D', 'Tag X'], ['Moi', 'Me', 'Yo', 'Ich'],
+  ['Prochaine nuit', 'Next night', 'Próxima noche', 'Nächste Nacht'],
+  ['jours', 'days', 'días', 'Tage'], ['heures', 'hours', 'horas', 'Std.'], ['min', 'min', 'min', 'Min.'], ['sec', 'sec', 'seg', 'Sek.'],
+  ['Prendre mon billet', 'Get my ticket', 'Comprar mi entrada', 'Ticket holen'],
+  ['Ajouter à mon agenda', 'Add to my calendar', 'Añadir a mi calendario', 'Zum Kalender hinzufügen'],
+  ['Ma carte DC', 'My DC card', 'Mi tarjeta DC', 'Meine DC-Karte'],
+  ['1 soirée = 1 tampon · des récompenses à la clé', '1 night = 1 stamp · rewards to unlock', '1 noche = 1 sello · con recompensas', '1 Nacht = 1 Stempel · mit Prämien'],
+  ['Voir', 'View', 'Ver', 'Ansehen'],
+  ['Une semaine au sommet avec Malaysia et La Folie Douce. Inscris-toi pour être prévenu·e en premier à l\'ouverture des préventes.',
+   'A week at the summit with Malaysia and La Folie Douce. Sign up to be the first to know when presales open.',
+   'Una semana en la cumbre con Malaysia y La Folie Douce. Apúntate para enterarte el primero de la preventa.',
+   'Eine Woche auf dem Gipfel mit Malaysia und La Folie Douce. Melde dich an und erfahre als Erste·r vom Vorverkauf.'],
+  ['Me pré-inscrire', 'Pre-register', 'Preinscribirme', 'Vorab anmelden'], ['Pré-inscrit·e ✓', 'Pre-registered ✓', 'Preinscrito·a ✓', 'Vorgemerkt ✓'],
+  ['Le programme jour par jour', 'Day-by-day programme', 'El programa día a día', 'Programm Tag für Tag'],
+  ['Nos lieux', 'Our venues', 'Nuestros lugares', 'Unsere Locations'], ['Plan', 'Map', 'Mapa', 'Karte'],
+  ['nos open airs d\'été', 'our summer open airs', 'nuestros open airs de verano', 'unsere Sommer-Open-Airs'],
+  ['le 10 novembre', 'on 10 November', 'el 10 de noviembre', 'am 10. November'],
+  ['le festival d\'hiver', 'the winter festival', 'el festival de invierno', 'das Winterfestival'],
+  ['La famille', 'The family', 'La familia', 'Die Familie'], ['abonnés IG', 'IG followers', 'seguidores IG', 'IG-Follower'],
+  ['éditions', 'editions', 'ediciones', 'Ausgaben'], ['artistes', 'artists', 'artistas', 'Artists'],
+  ['Qui pour la prochaine ?', 'Who\'s next?', '¿Quién para la próxima?', 'Wer als Nächstes?'],
+  ['Vote pour l\'artiste que tu veux voir chez Disconnect.', 'Vote for the artist you want to see at Disconnect.', 'Vota por el artista que quieres ver en Disconnect.', 'Stimme für den Artist, den du bei Disconnect sehen willst.'],
+  ['Retour de Mandragora', 'Mandragora returns', 'Vuelta de Mandragora', 'Mandragora kommt zurück'],
+  ['Nous suivre', 'Follow us', 'Síguenos', 'Folge uns'], ['Boutique', 'Shop', 'Tienda', 'Shop'], ['Partager', 'Share', 'Compartir', 'Teilen'],
+  // Val Thorens, boutique
+  ['6 nuits au Malaysia, 2 après-ski à La Folie Douce. UK House, Minimal Deep Tech & Tech-House. Jours indicatifs (démo) : le line-up arrive bientôt.',
+   '6 nights at Malaysia, 2 après-ski parties at La Folie Douce. UK House, Minimal Deep Tech & Tech-House. Days are indicative (demo): line-up coming soon.',
+   '6 noches en Malaysia, 2 après-ski en La Folie Douce. UK House, Minimal Deep Tech y Tech-House. Días orientativos (demo): line-up muy pronto.',
+   '6 Nächte im Malaysia, 2 Après-Ski in La Folie Douce. UK House, Minimal Deep Tech & Tech-House. Tage unverbindlich (Demo): Line-up folgt bald.'],
+  ['Nuit au Malaysia', 'Night at Malaysia', 'Noche en Malaysia', 'Nacht im Malaysia'],
+  ['Line-up bientôt dévoilé', 'Line-up coming soon', 'Line-up muy pronto', 'Line-up folgt bald'],
+  ['Rappel', 'Reminder', 'Recordatorio', 'Erinnerung'], ['✓ Rappel', '✓ Reminder', '✓ Recordatorio', '✓ Erinnerung'],
+  ['Retour', 'Back', 'Volver', 'Zurück'], ['Boutique DC', 'DC shop', 'Tienda DC', 'DC-Shop'],
+  ['Exemple de merch (démo) : l\'organisateur ajoute ses vrais produits.', 'Sample merch (demo): the organiser adds their real products.', 'Merch de ejemplo (demo): el organizador añade sus productos reales.', 'Beispiel-Merch (Demo): der Veranstalter fügt seine echten Produkte hinzu.'],
+  ['T-shirt néon DC', 'DC neon T-shirt', 'Camiseta neón DC', 'DC-Neon-T-Shirt'], ['Casquette DISCONNECT', 'DISCONNECT cap', 'Gorra DISCONNECT', 'DISCONNECT-Cap'],
+  ['Hoodie Val Thorens', 'Val Thorens hoodie', 'Sudadera Val Thorens', 'Val-Thorens-Hoodie'], ['Tote bag Vinyl Stage', 'Vinyl Stage tote bag', 'Tote bag Vinyl Stage', 'Vinyl-Stage-Tasche'],
+  ['Commander', 'Order', 'Pedir', 'Bestellen'],
+  // Concours
+  ['Jeu concours', 'Contest', 'Concurso', 'Gewinnspiel'], ['À gagner', 'To win', 'Se sortea', 'Zu gewinnen'],
+  ['2 places pour Sidney Charles', '2 tickets for Sidney Charles', '2 entradas para Sidney Charles', '2 Tickets für Sidney Charles'],
+  ['10 novembre. Tirage au sort le', '10 November. Prize draw on', '10 de noviembre. Sorteo el', '10. November. Verlosung am'],
+  ['5 novembre à 18h', '5 November at 6 pm', '5 de noviembre a las 18 h', '5. November um 18 Uhr'],
+  ['. Bonus : chaque pote invité = 1 chance de plus.', '. Bonus: every friend you invite = 1 extra chance.', '. Bonus: cada amigo invitado = 1 oportunidad más.', '. Bonus: jede·r eingeladene Freund·in = 1 Chance mehr.'],
+  ['Je participe', 'Enter', 'Participo', 'Mitmachen'], ['✓ Inscrit·e au tirage', '✓ Entered in the draw', '✓ Inscrito·a en el sorteo', '✓ Bei der Verlosung dabei'],
+  ['Inviter un pote (+1 chance)', 'Invite a friend (+1 chance)', 'Invitar a un amigo (+1 oportunidad)', 'Freund·in einladen (+1 Chance)'],
+  ['Concours fictif (démo). Le vrai règlement est fourni par l\'organisateur.', 'Fictional contest (demo). The real rules are provided by the organiser.', 'Concurso ficticio (demo). Las bases reales las da el organizador.', 'Fiktives Gewinnspiel (Demo). Die echten Teilnahmebedingungen stellt der Veranstalter.'],
+  ['Tirage effectué', 'Draw completed', 'Sorteo realizado', 'Verlosung beendet'],
+  // Soirées
+  ['Mon passeport', 'My passport', 'Mi pasaporte', 'Mein Pass'], ['À venir', 'Upcoming', 'Próximas', 'Demnächst'],
+  ['Billets', 'Tickets', 'Entradas', 'Tickets'], ['Pré-inscription', 'Pre-register', 'Preinscripción', 'Vormerken'],
+  ['Note la dernière nuit', 'Rate the last night', 'Puntúa la última noche', 'Bewerte die letzte Nacht'],
+  ['Un mot sur la soirée ?', 'A word about the night?', '¿Una palabra sobre la noche?', 'Ein Wort zur Nacht?'],
+  ['Envoyer mon avis', 'Send my review', 'Enviar mi opinión', 'Bewertung senden'],
+  ['Déjà vécues', 'Past nights', 'Ya vividas', 'Schon erlebt'], ['J\'y étais', 'I was there', 'Yo estuve', 'Ich war dabei'], ['✓ J\'y étais', '✓ I was there', '✓ Yo estuve', '✓ Ich war dabei'],
+  ['Janv. 2026', 'Jan 2026', 'Ene. 2026', 'Jan. 2026'], ['Une semaine de festival au sommet.', 'A week of festival at the summit.', 'Una semana de festival en la cumbre.', 'Eine Festivalwoche auf dem Gipfel.'],
+  ['Coche « J\'y étais » pour faire grimper ton niveau.', 'Tick “I was there” to level up.', 'Marca «Yo estuve» para subir de nivel.', 'Hake „Ich war dabei“ an, um aufzusteigen.'],
+  ['Curieux·se', 'Curious', 'Curioso·a', 'Neugierig'], ['Connecté·e', 'Connected', 'Conectado·a', 'Connected'], ['Habitué·e', 'Regular', 'Habitual', 'Stammgast'],
+  ['Légende DC', 'DC legend', 'Leyenda DC', 'DC-Legende'],
+  ['Coche les soirées où tu étais.', 'Tick the nights you were at.', 'Marca las noches en las que estuviste.', 'Hake die Nächte an, bei denen du warst.'],
+  ['Bienvenue dans la famille.', 'Welcome to the family.', 'Bienvenido·a a la familia.', 'Willkommen in der Familie.'],
+  ['Tu connais le chemin du Clos.', 'You know the way to the Clos.', 'Conoces el camino al Clos.', 'Du kennst den Weg zum Clos.'],
+  ['Tu fais partie des murs.', 'You\'re part of the furniture.', 'Ya eres parte de la casa.', 'Du gehörst zum Inventar.'],
+  ['Toutes les nuits, sans exception.', 'Every night, no exceptions.', 'Todas las noches, sin excepción.', 'Jede Nacht, ohne Ausnahme.'],
+  // Line-up, Moments, stories
+  ['Tous', 'All', 'Todos', 'Alle'], ['★ Favoris', '★ Favourites', '★ Favoritos', '★ Favoriten'],
+  ['Chercher un artiste…', 'Search for an artist…', 'Buscar un artista…', 'Artist suchen…'], ['Favori', 'Favourite', 'Favorito', 'Favorit'],
+  ['Déjà passé·e chez Disconnect', 'Has played at Disconnect', 'Ya pasó por Disconnect', 'War schon bei Disconnect'], ['Aucun artiste.', 'No artists.', 'Ningún artista.', 'Keine Artists.'],
+  ['Coulisses', 'Backstage', 'Backstage', 'Backstage'],
+  ['Les dernières publications de @disconnect.music_. Touche une photo pour l\'ouvrir sur Instagram.', 'The latest posts from @disconnect.music_. Tap a photo to open it on Instagram.', 'Las últimas publicaciones de @disconnect.music_. Toca una foto para abrirla en Instagram.', 'Die neuesten Posts von @disconnect.music_. Tippe auf ein Foto, um es auf Instagram zu öffnen.'],
+  ['Dans le noir', 'In the dark', 'En la oscuridad', 'Im Dunkeln'], ['Annonce', 'Announcement', 'Anuncio', 'Ankündigung'],
+  ['Démo : dans la version officielle, les vraies stories Instagram de @disconnect.music_ arrivent ici automatiquement.', 'Demo: in the official version, the real Instagram stories from @disconnect.music_ appear here automatically.', 'Demo: en la versión oficial, las historias reales de Instagram de @disconnect.music_ llegan aquí automáticamente.', 'Demo: In der offiziellen Version erscheinen die echten Instagram-Storys von @disconnect.music_ hier automatisch.'],
+  ['Fermer', 'Close', 'Cerrar', 'Schließen'], ['Précédente', 'Previous', 'Anterior', 'Zurück'], ['Suivante', 'Next', 'Siguiente', 'Weiter'],
+  // Jour J
+  ['Mon billet', 'My ticket', 'Mi entrada', 'Mein Ticket'], ['Mar. 10 nov. 2026', 'Tue 10 Nov 2026', 'Mar. 10 nov. 2026', 'Di. 10. Nov. 2026'], ['Mar. 10 nov.', 'Tue 10 Nov', 'Mar. 10 nov.', 'Di. 10. Nov.'],
+  ['Touche le QR pour l\'agrandir', 'Tap the QR code to enlarge it', 'Toca el QR para ampliarlo', 'Tippe auf den QR-Code zum Vergrößern'], ['Toucher pour agrandir', 'Tap to enlarge', 'Toca para ampliar', 'Zum Vergrößern tippen'],
+  ['Billet de démonstration ·', 'Demo ticket ·', 'Entrada de demostración ·', 'Demo-Ticket ·'], ['Invité·e', 'Guest', 'Invitado·a', 'Gast'],
+  ['Pas encore de billet ?', 'No ticket yet?', '¿Aún sin entrada?', 'Noch kein Ticket?'],
+  ['Si c\'est complet, inscris-toi : une place libérée, et tu es prévenu·e en premier.', 'If it\'s sold out, sign up: when a spot frees up, you\'ll be the first to know.', 'Si está completo, apúntate: si se libera una plaza, te avisamos el primero.', 'Ausverkauft? Trag dich ein: wird ein Platz frei, erfährst du es zuerst.'],
+  ['Liste d\'attente', 'Waiting list', 'Lista de espera', 'Warteliste'], ['✓ Sur la liste d\'attente', '✓ On the waiting list', '✓ En la lista de espera', '✓ Auf der Warteliste'],
+  ['Programme', 'Programme', 'Programa', 'Programm'],
+  ['Horaires indicatifs (démo) : l\'équipe les annonce sur Instagram.', 'Indicative times (demo): the team announces them on Instagram.', 'Horarios orientativos (demo): el equipo los anuncia en Instagram.', 'Zeiten unverbindlich (Demo): das Team kündigt sie auf Instagram an.'],
+  ['· Fermeture', '· Closing', '· Cierre', '· Ende'], ['en ce moment', 'playing now', 'ahora mismo', 'gerade jetzt'],
+  ['Météo à Vauvert', 'Weather in Vauvert', 'El tiempo en Vauvert', 'Wetter in Vauvert'], ['Aujourd\'hui', 'Today', 'Hoy', 'Heute'],
+  ['La météo du 10 novembre s\'affiche ici 16 jours avant.', 'The forecast for 10 November appears here 16 days before.', 'El tiempo del 10 de noviembre aparece aquí 16 días antes.', 'Das Wetter für den 10. November erscheint hier 16 Tage vorher.'],
+  ['Les nuits sont fraîches en novembre : prévois une veste pour la sortie.', 'Nights are chilly in November: bring a jacket for the way out.', 'Las noches son frescas en noviembre: lleva una chaqueta para la salida.', 'Die Nächte im November sind kühl: nimm eine Jacke für den Heimweg mit.'],
+  ['Météo indisponible hors ligne.', 'Weather unavailable offline.', 'Tiempo no disponible sin conexión.', 'Wetter offline nicht verfügbar.'], ['Chargement…', 'Loading…', 'Cargando…', 'Wird geladen…'],
+  ['Y aller', 'Getting there', 'Cómo llegar', 'Anfahrt'], ['🕙 Horaires', '🕙 Opening hours', '🕙 Horario', '🕙 Uhrzeiten'],
+  ['inclus avec la Carte Privilège', 'included with the Privilege Card', 'incluido con la Tarjeta Privilegio', 'inklusive mit der Privilege-Karte'],
+  ['Itinéraire', 'Directions', 'Cómo llegar', 'Route'], ['Covoiturage', 'Carpooling', 'Coche compartido', 'Mitfahren'],
+  ['Navette Disconnect', 'Disconnect shuttle', 'Lanzadera Disconnect', 'Disconnect-Shuttle'],
+  ['Aller-retour sans prendre le volant. Horaires et prix indicatifs (démo).', 'Return trip without driving. Indicative times and prices (demo).', 'Ida y vuelta sin conducir. Horarios y precios orientativos (demo).', 'Hin und zurück, ohne selbst zu fahren. Zeiten und Preise unverbindlich (Demo).'],
+  ['Réserver', 'Book', 'Reservar', 'Buchen'], ['✓ Réservé', '✓ Booked', '✓ Reservado', '✓ Gebucht'],
+  ['Retours : 03:30 et 05:15 depuis le parking du club.', 'Return: 03:30 and 05:15 from the club car park.', 'Regreso: 03:30 y 05:15 desde el parking del club.', 'Rückfahrt: 03:30 und 05:15 vom Club-Parkplatz.'],
+  ['Retrouver ma bande', 'Find my crew', 'Encontrar a mi grupo', 'Meine Crew finden'],
+  ['Choisis un point de rendez-vous et envoie-le à tes potes.', 'Pick a meeting point and send it to your friends.', 'Elige un punto de encuentro y envíalo a tus amigos.', 'Wähle einen Treffpunkt und schick ihn deinen Freund·innen.'],
+  ['L\'entrée', 'The entrance', 'La entrada', 'Der Eingang'], ['Le bar', 'The bar', 'La barra', 'Die Bar'], ['Devant la scène', 'In front of the stage', 'Delante del escenario', 'Vor der Bühne'],
+  ['Le parking', 'The car park', 'El parking', 'Der Parkplatz'], ['Le vestiaire', 'The cloakroom', 'El guardarropa', 'Die Garderobe'],
+  ['Envoyer à ma bande', 'Send to my crew', 'Enviar a mi grupo', 'An meine Crew senden'],
+  ['Infos pratiques', 'Practical info', 'Información práctica', 'Praktische Infos'],
+  ['Âge minimum', 'Minimum age', 'Edad mínima', 'Mindestalter'],
+  ['Soirée interdite aux mineurs. Une pièce d\'identité physique peut être demandée à l\'entrée.', 'No under-18s. A physical ID may be requested at the door.', 'Prohibida la entrada a menores. Se puede pedir un documento de identidad físico en la entrada.', 'Kein Zutritt unter 18. Ein Ausweis kann am Eingang verlangt werden.'],
+  ['Carte Privilège', 'Privilege Card', 'Tarjeta Privilegio', 'Privilege-Karte'],
+  ['Elle ne donne pas accès gratuitement au club, mais le parking VIP reste inclus.', 'It doesn\'t give free entry to the club, but VIP parking is still included.', 'No da acceso gratuito al club, pero el parking VIP sigue incluido.', 'Sie gewährt keinen freien Eintritt, aber der VIP-Parkplatz ist inklusive.'],
+  ['Billet', 'Ticket', 'Entrada', 'Ticket'],
+  ['Garde-le dans l\'app Shotgun : le QR est scanné à l\'entrée.', 'Keep it in the Shotgun app: the QR code is scanned at the door.', 'Guárdala en la app Shotgun: el QR se escanea en la entrada.', 'Behalte es in der Shotgun-App: der QR-Code wird am Eingang gescannt.'],
+  ['Revente', 'Resale', 'Reventa', 'Weiterverkauf'],
+  ['Passe par la revente officielle Shotgun, jamais par un inconnu.', 'Use Shotgun\'s official resale, never a stranger.', 'Usa la reventa oficial de Shotgun, nunca a un desconocido.', 'Nutze den offiziellen Shotgun-Weiterverkauf, nie Fremde.'],
+  ['Besoin d\'aide ?', 'Need help?', '¿Necesitas ayuda?', 'Brauchst du Hilfe?'],
+  ['Un souci sur place ? Va voir le staff à l\'entrée, ou appelle les secours.', 'A problem on site? Talk to the staff at the entrance, or call emergency services.', '¿Algún problema? Habla con el staff de la entrada o llama a emergencias.', 'Ein Problem vor Ort? Sprich das Team am Eingang an oder ruf den Notruf.'],
+  ['Appeler le 112', 'Call 112', 'Llamar al 112', '112 anrufen'],
+  // Moi
+  ['Mon profil', 'My profile', 'Mi perfil', 'Mein Profil'], ['Ton prénom', 'Your first name', 'Tu nombre', 'Dein Vorname'],
+  ['Niveau', 'Level', 'Nivel', 'Level'], ['Soirées vécues', 'Nights attended', 'Noches vividas', 'Erlebte Nächte'], ['Artistes favoris', 'Favourite artists', 'Artistas favoritos', 'Lieblings-Artists'],
+  ['Festival Val Thorens', 'Val Thorens festival', 'Festival Val Thorens', 'Festival Val Thorens'], ['pré-inscrit·e', 'pre-registered', 'preinscrito·a', 'vorgemerkt'],
+  ['Ma carte de fidélité', 'My loyalty card', 'Mi tarjeta de fidelidad', 'Meine Treuekarte'], ['points DC', 'DC points', 'puntos DC', 'DC-Punkte'], ['Membre DC', 'DC member', 'Miembro DC', 'DC-Mitglied'],
+  ['Mes tampons', 'My stamps', 'Mis sellos', 'Meine Stempel'],
+  ['Montre ta carte au bar ou à l\'entrée : le staff la scanne et tu gagnes un tampon. Chaque « J\'y étais » compte aussi.', 'Show your card at the bar or the entrance: the staff scans it and you earn a stamp. Every “I was there” counts too.', 'Enseña tu tarjeta en la barra o en la entrada: el staff la escanea y ganas un sello. Cada «Yo estuve» también cuenta.', 'Zeig deine Karte an der Bar oder am Eingang: das Team scannt sie und du bekommst einen Stempel. Jedes „Ich war dabei“ zählt auch.'],
+  ['Faire tamponner (démo)', 'Get a stamp (demo)', 'Sellar (demo)', 'Stempeln lassen (Demo)'], ['Parrainer un pote (+1)', 'Refer a friend (+1)', 'Invitar a un amigo (+1)', 'Freund·in werben (+1)'],
+  ['Mes récompenses', 'My rewards', 'Mis recompensas', 'Meine Prämien'],
+  ['Vestiaire offert', 'Free cloakroom', 'Guardarropa gratis', 'Garderobe gratis'], ['Une conso offerte', 'A free drink', 'Una consumición gratis', 'Ein Drink gratis'],
+  ['Coupe-file à l\'entrée', 'Skip the queue', 'Acceso sin cola', 'Ohne Anstehen rein'], ['Un billet offert', 'A free ticket', 'Una entrada gratis', 'Ein Ticket gratis'],
+  ['Utiliser', 'Use', 'Usar', 'Einlösen'], ['Utilisée', 'Used', 'Usada', 'Eingelöst'], ['Débloquée', 'Unlocked', 'Desbloqueada', 'Freigeschaltet'],
+  ['Ajouter au Wallet', 'Add to Wallet', 'Añadir a Wallet', 'Zu Wallet hinzufügen'],
+  ['Météo de nos lieux', 'Weather at our venues', 'El tiempo en nuestros lugares', 'Wetter an unseren Locations'], ['Auj.', 'Today', 'Hoy', 'Heute'],
+  ['pas encore de neige', 'no snow yet', 'aún sin nieve', 'noch kein Schnee'],
+  ['Raccourcis', 'Shortcuts', 'Accesos directos', 'Shortcuts'], ['Sur mon écran', 'On my home screen', 'En mi pantalla', 'Auf den Homescreen'],
+  ['Réglages', 'Settings', 'Ajustes', 'Einstellungen'], ['Alerte billetterie', 'Ticket alert', 'Alerta de entradas', 'Ticket-Alarm'],
+  ['Préventes du festival', 'Festival presales', 'Preventa del festival', 'Festival-Vorverkauf'], ['Rappel le jour J', 'D-Day reminder', 'Recordatorio el día D', 'Erinnerung am Tag X'],
+  ['Effacer mes données', 'Delete my data', 'Borrar mis datos', 'Meine Daten löschen'], ['Langue', 'Language', 'Idioma', 'Sprache'],
+  // Espace orga
+  ['Chiffres fictifs pour la démo.', 'Fictional figures for the demo.', 'Cifras ficticias para la demo.', 'Fiktive Zahlen für die Demo.'],
+  ['billets vendus · Churascaia', 'tickets sold · Churascaia', 'entradas vendidas · Churascaia', 'verkaufte Tickets · Churascaia'],
+  ['intéressés Shotgun', 'interested on Shotgun', 'interesados en Shotgun', 'Interessierte auf Shotgun'], ['pré-inscrits Val Thorens', 'pre-registered for Val Thorens', 'preinscritos Val Thorens', 'Vormerkungen Val Thorens'],
+  ['note du 29 août', '29 Aug rating', 'nota del 29 de agosto', 'Bewertung 29. Aug.'], ['membres carte DC', 'DC card members', 'miembros tarjeta DC', 'DC-Karten-Mitglieder'],
+  ['reviennent dans les 3 mois', 'come back within 3 months', 'vuelven en 3 meses', 'kommen binnen 3 Monaten wieder'],
+  ['D\'où vient le public', 'Where the crowd comes from', 'De dónde viene el público', 'Woher das Publikum kommt'], ['Autres', 'Others', 'Otros', 'Andere'],
+  ['Artistes les plus attendus', 'Most wanted artists', 'Artistas más esperados', 'Meistgewünschte Artists'],
+  ['Ex : Last call billets, -50 places !', 'E.g. Last call, 50 tickets left!', 'Ej.: ¡Última llamada, quedan 50 entradas!', 'z. B. Last Call, nur noch 50 Tickets!'],
+  ['Envoyer aux abonnés', 'Send to subscribers', 'Enviar a los suscriptores', 'An Abonnent·innen senden'],
+  ['Exporter les pré-inscrits (CSV)', 'Export pre-registrations (CSV)', 'Exportar preinscritos (CSV)', 'Vormerkungen exportieren (CSV)'],
+  // Lieux, dates, images
+  ['29 août', '29 Aug', '29 ago.', '29. Aug.'], ['Line-up 29 août', '29 Aug line-up', 'Line-up 29 ago.', 'Line-up 29. Aug.'], ['9 → 14 janv. 2027', '9 → 14 Jan 2027', '9 → 14 ene. 2027', '9. → 14. Jan. 2027'],
+  ['Logo Disconnect', 'Disconnect logo', 'Logo de Disconnect', 'Disconnect-Logo'], ['Le logo néon DC de Disconnect', 'Disconnect\'s neon DC logo', 'El logo neón DC de Disconnect', 'Das DC-Neonlogo von Disconnect'],
+  ['Affiche Disconnect Festival Val Thorens', 'Disconnect Festival Val Thorens poster', 'Cartel Disconnect Festival Val Thorens', 'Plakat Disconnect Festival Val Thorens'],
+  // Messages
+  ['On te prévient dès l\'ouverture des préventes', 'We\'ll let you know as soon as presales open', 'Te avisamos en cuanto abra la preventa', 'Wir sagen dir Bescheid, sobald der Vorverkauf startet'],
+  ['Vote enregistré', 'Vote saved', 'Voto registrado', 'Stimme gespeichert'], ['Lien copié', 'Link copied', 'Enlace copiado', 'Link kopiert'],
+  ['Rappel activé pour ce jour', 'Reminder on for this day', 'Recordatorio activado para este día', 'Erinnerung für diesen Tag aktiv'], ['Rappel retiré', 'Reminder removed', 'Recordatorio eliminado', 'Erinnerung entfernt'],
+  ['Commande : dans la version officielle', 'Ordering: in the official version', 'Pedidos: en la versión oficial', 'Bestellen: in der offiziellen Version'],
+  ['Covoiturage : dans la version officielle', 'Carpooling: in the official version', 'Coche compartido: en la versión oficial', 'Mitfahren: in der offiziellen Version'],
+  ['Wallet : dans la version officielle', 'Wallet: in the official version', 'Wallet: en la versión oficial', 'Wallet: in der offiziellen Version'],
+  ['Choisis une note', 'Pick a rating', 'Elige una nota', 'Wähle eine Bewertung'], ['Merci pour ton avis 🔌', 'Thanks for your review 🔌', 'Gracias por tu opinión 🔌', 'Danke für deine Bewertung 🔌'],
+  ['Tu seras prévenu·e si une place se libère', 'You\'ll be told if a spot frees up', 'Te avisaremos si se libera una plaza', 'Wir melden uns, wenn ein Platz frei wird'],
+  ['Retiré·e de la liste', 'Removed from the list', 'Eliminado·a de la lista', 'Von der Liste entfernt'],
+  ['Message copié, colle-le à ta bande', 'Message copied, paste it to your crew', 'Mensaje copiado, pégalo a tu grupo', 'Nachricht kopiert, füg sie bei deiner Crew ein'],
+  ['Safari : Partager ⬆️ puis « Sur l\'écran d\'accueil »', 'Safari: Share ⬆️ then “Add to Home Screen”', 'Safari: Compartir ⬆️ y luego «Añadir a pantalla de inicio»', 'Safari: Teilen ⬆️, dann „Zum Home-Bildschirm“'],
+  ['Menu du navigateur ⋮ puis « Ajouter à l\'écran d\'accueil »', 'Browser menu ⋮ then “Add to Home screen”', 'Menú del navegador ⋮ y luego «Añadir a pantalla de inicio»', 'Browser-Menü ⋮, dann „Zum Startbildschirm hinzufügen“'],
+  ['Activé', 'On', 'Activado', 'Aktiviert'], ['Désactivé', 'Off', 'Desactivado', 'Deaktiviert'],
+  ['Écris un message', 'Write a message', 'Escribe un mensaje', 'Schreib eine Nachricht'], ['Envoyé (démo)', 'Sent (demo)', 'Enviado (demo)', 'Gesendet (Demo)'],
+  ['Tampon ajouté 🔌', 'Stamp added 🔌', 'Sello añadido 🔌', 'Stempel hinzugefügt 🔌'], ['Parrainage envoyé', 'Referral sent', 'Invitación enviada', 'Einladung gesendet'],
+  ['Récompense validée ✓', 'Reward redeemed ✓', 'Recompensa validada ✓', 'Prämie eingelöst ✓'], ['Réservation annulée', 'Booking cancelled', 'Reserva cancelada', 'Buchung storniert'],
+  ['Place réservée', 'Seat booked', 'Plaza reservada', 'Platz gebucht'],
+  ['Tu es déjà inscrit·e', 'You\'re already entered', 'Ya estás inscrito·a', 'Du bist schon dabei'], ['Inscrit·e ! Bonne chance 🍀', 'You\'re in! Good luck 🍀', '¡Inscrito·a! Buena suerte 🍀', 'Du bist dabei! Viel Glück 🍀'],
+  ['+1 chance au tirage', '+1 chance in the draw', '+1 oportunidad en el sorteo', '+1 Chance bei der Verlosung'],
+  ['Effacer ton passeport, tes favoris et tes réglages ?', 'Delete your passport, favourites and settings?', '¿Borrar tu pasaporte, favoritos y ajustes?', 'Pass, Favoriten und Einstellungen löschen?'],
+  ['Montre l\'écran au staff. Utiliser cette récompense maintenant ?', 'Show the screen to the staff. Use this reward now?', 'Enseña la pantalla al staff. ¿Usar esta recompensa ahora?', 'Zeig den Bildschirm dem Team. Prämie jetzt einlösen?'],
+  ['L\'app Disconnect : soirées, line-up, billets', 'The Disconnect app: nights, line-up, tickets', 'La app de Disconnect: fiestas, line-up, entradas', 'Die Disconnect-App: Partys, Line-up, Tickets'],
+  ['On se retrouve à l\'entrée', 'Meet me at the entrance', 'Nos vemos en la entrada', 'Wir treffen uns am Eingang'], ['On se retrouve à le bar', 'Meet me at the bar', 'Nos vemos en la barra', 'Wir treffen uns an der Bar'],
+  ['On se retrouve à devant la scène', 'Meet me in front of the stage', 'Nos vemos delante del escenario', 'Wir treffen uns vor der Bühne'],
+  ['On se retrouve à le parking', 'Meet me at the car park', 'Nos vemos en el parking', 'Wir treffen uns auf dem Parkplatz'], ['On se retrouve à le vestiaire', 'Meet me at the cloakroom', 'Nos vemos en el guardarropa', 'Wir treffen uns an der Garderobe'],
+  ['Disconnect à La Churascaia 🔌', 'Disconnect at La Churascaia 🔌', 'Disconnect en La Churascaia 🔌', 'Disconnect in La Churascaia 🔌'],
+];
+// Textes avec un nombre ou un nom dedans
+const pl = (n, a, b) => +n > 1 ? b : a;
+const RX = [
+  [/^(.*?) ?Encore (\d+) pour « (.+) »\.$/, (a, n, b) => [tr(a), {en:`${n} more for “${tr(b)}”.`, es:`${n} más para «${tr(b)}».`, de:`Noch ${n} bis „${tr(b)}“.`}[LANG]].filter(Boolean).join(' ')],
+  [/^(\d+) tampons?$/, n => ({en:`${n} ${pl(n, 'stamp', 'stamps')}`, es:`${n} ${pl(n, 'sello', 'sellos')}`, de:`${n} ${pl(n, 'Stempel', 'Stempel')}`}[LANG])],
+  [/^(\d+) récompense\(s\)$/, n => ({en:`${n} reward(s)`, es:`${n} recompensa(s)`, de:`${n} Prämie(n)`}[LANG])],
+  [/^À (\d+) tampons$/, n => ({en:`At ${n} stamps`, es:`Con ${n} sellos`, de:`Ab ${n} Stempeln`}[LANG])],
+  [/^(\d+) places$/, n => ({en:`${n} seats`, es:`${n} plazas`, de:`${n} Plätze`}[LANG])],
+  [/^vent (\d+) km\/h$/, n => ({en:`wind ${n} km/h`, es:`viento ${n} km/h`, de:`Wind ${n} km/h`}[LANG])],
+  [/^neige (\d+) cm$/, n => ({en:`snow ${n} cm`, es:`nieve ${n} cm`, de:`Schnee ${n} cm`}[LANG])],
+  [/^Tirage dans (\d+) jours?$/, n => ({en:`Draw in ${n} ${pl(n, 'day', 'days')}`, es:`Sorteo en ${n} ${pl(n, 'día', 'días')}`, de:`Verlosung in ${n} ${pl(n, 'Tag', 'Tagen')}`}[LANG])],
+  [/^tu as (\d+) chances?$/, n => ({en:`you have ${n} ${pl(n, 'chance', 'chances')}`, es:`tienes ${n} ${pl(n, 'oportunidad', 'oportunidades')}`, de:`du hast ${n} ${pl(n, 'Chance', 'Chancen')}`}[LANG])],
+  [/^départ (\S+) de (.+)$/, (h, v) => ({en:`departs ${h} from ${v}`, es:`salida ${h} desde ${v}`, de:`Abfahrt ${h} ab ${v}`}[LANG])],
+  [/^(\d) sur 5$/, n => ({en:`${n} out of 5`, es:`${n} de 5`, de:`${n} von 5`}[LANG])],
+  [/^\+1 tampon$/, () => ({en:'+1 stamp', es:'+1 sello', de:'+1 Stempel'}[LANG])],
+  [/^Rejoins la famille Disconnect avec mon code (\S+) 🔌 (.*)$/, (c, u) => ({en:`Join the Disconnect family with my code ${c} 🔌 ${u}`, es:`Únete a la familia Disconnect con mi código ${c} 🔌 ${u}`, de:`Komm in die Disconnect-Familie mit meinem Code ${c} 🔌 ${u}`}[LANG])],
+  [/^Je tente de gagner 2 places pour Sidney Charles à La Churascaia avec Disconnect 🔌 (.*)$/, u => ({en:`I'm trying to win 2 tickets for Sidney Charles at La Churascaia with Disconnect 🔌 ${u}`, es:`Intento ganar 2 entradas para Sidney Charles en La Churascaia con Disconnect 🔌 ${u}`, de:`Ich versuche, 2 Tickets für Sidney Charles in La Churascaia mit Disconnect zu gewinnen 🔌 ${u}`}[LANG])],
+  [/^(\p{Extended_Pictographic}️?) (.+)$/u, (e, s) => e + ' ' + tr(s)],
+  [/^(.+) (\p{Extended_Pictographic}️?)$/u, (s, e) => tr(s) + ' ' + e],
+];
+const DICT = Object.fromEntries(TXT.map(r => [r[0], r[LANGS.indexOf(LANG)]]));
+function tr(s) {
+  if (LANG === 'fr' || !s || !s.trim()) return s;
+  const k = s.trim(), pre = s.match(/^\s*/)[0], post = s.match(/\s*$/)[0];
+  let out = DICT[k];
+  if (out == null) for (const [re, f] of RX) { const m = k.match(re); if (m) { out = f(...m.slice(1)); break; } }
+  if (out == null && k.includes(' · ')) out = k.split(' · ').map(tr).join(' · ');
+  return pre + (out ?? k) + post;
+}
+function trDom(root) { // traduit les textes et attributs d'un morceau de page
+  if (LANG === 'fr') return;
+  if (root.nodeType === 3) { if (!root.parentNode?.closest('script,style')) root.nodeValue = tr(root.nodeValue); return; }
+  if (root.nodeType !== 1 || root.closest('script,style')) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n;
+  while ((n = w.nextNode())) { const v = tr(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v; }
+  [root, ...root.querySelectorAll('[placeholder],[aria-label],[title],img[alt]')].forEach(e => ['placeholder', 'aria-label', 'title', 'alt'].forEach(a => e.hasAttribute?.(a) && e.setAttribute(a, tr(e.getAttribute(a)))));
+}
+function setLang(l) { st.lang = l; save(); location.reload(); }
+document.documentElement.lang = LANG;
+
+const fmt = (d, o) => new Date(d).toLocaleDateString(LOC[LANG], o);
 const now = () => new Date();
 const upcoming = () => EVENTS.filter(e => new Date(e.end || e.date) > now()).sort((a, b) => a.date.localeCompare(b.date));
 const past = () => EVENTS.filter(e => new Date(e.end || e.date) <= now());
 
-function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2400); }
+function toast(m) { navigator.vibrate?.(15); const t = $('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 2400); }
 function go(t) {
   document.querySelectorAll('section').forEach(s => s.classList.toggle('on', s.id === t));
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
@@ -410,7 +778,7 @@ function renderPoll() {
 }
 function vote(i) { st.vote = i; save(); renderPoll(); toast('Vote enregistré'); }
 function share() {
-  const d = {title:'DISCONNECT.', text:'L\'app Disconnect : soirées, line-up, billets', url:location.href};
+  const d = {title:'DISCONNECT.', text:tr('L\'app Disconnect : soirées, line-up, billets'), url:location.href};
   navigator.share ? navigator.share(d).catch(() => {}) : navigator.clipboard?.writeText(d.url).then(() => toast('Lien copié'));
 }
 
@@ -460,9 +828,38 @@ $('arts').onclick = e => { const b = e.target.closest('.fav'); if (!b) return; c
 $('grid').innerHTML = POSTS.map(([code, img, cap, type]) =>
   `<a href="https://www.instagram.com/${type || 'p'}/${code}/" target="_blank" rel="noopener"><img loading="lazy" src="${img}.jpg" alt="${cap}"><span>${type ? '▶ ' : ''}${cap}</span></a>`).join('');
 
+// Stories (démo : photos des posts ; version officielle = stories Instagram via l'API Meta)
+const STORIES = [['10.11', ['1-sidney-affiche', '2-sidney-portrait', '6-churascaia-teaser']], ['Val Thorens', ['4-festival-vt']],
+  ['29 août', ['7-aftermovie-1', '8-aftermovie-2', '9-aftermovie-3', '11-post-aout']], ['Coulisses', ['5-club-sombre', '3-foule-scene']], ['Open Air', ['12-reel-aout', '10-festival-aout']]];
+st.seen ||= [];
+let sg = 0, si = 0;
+function renderStories() {
+  $('stories').innerHTML = STORIES.map(([n, imgs], g) => `<button class="${st.seen.includes(n) ? 'seen' : ''}" onclick="openStory(${g})"><div class="ring"><img src="${imgs[0]}.jpg" alt=""></div>${n}</button>`).join('');
+}
+function showStory() {
+  const [n, imgs] = STORIES[sg];
+  $('st-img').src = `${imgs[si]}.jpg`; $('st-name').textContent = n;
+  $('st-bars').innerHTML = imgs.map((_, k) => `<i class="${k < si ? 'done' : k === si ? 'cur' : ''}"><b></b></i>`).join('');
+  $('st-bars').querySelector('.cur b').onanimationend = () => stStep(1);
+}
+function openStory(g) { sg = g; si = 0; $('story').classList.add('on'); showStory(); }
+function stStep(d) {
+  const n = STORIES[sg][0];
+  si += d;
+  if (si < 0) si = 0;
+  else if (si >= STORIES[sg][1].length) {
+    if (!st.seen.includes(n)) { st.seen.push(n); save(); }
+    if (++sg >= STORIES.length) return closeStory();
+    si = 0;
+  }
+  showStory();
+}
+function closeStory() { $('story').classList.remove('on'); $('st-bars').innerHTML = ''; renderStories(); }
+renderStories();
+
 // Jour J
-(function drawQR() { // ponytail: faux QR décoratif pour la démo, le vrai billet vient de Shotgun
-  const c = $('qr').getContext('2d'); let s = 7;
+function drawQR(id, seed) { // ponytail: faux QR décoratif pour la démo, le vrai billet vient de Shotgun
+  const c = $(id).getContext('2d'); let s = seed;
   const r = () => (s = s * 16807 % 2147483647) / 2147483647;
   for (let y = 0; y < 29; y++) for (let x = 0; x < 29; x++) {
     const f = [[0, 0], [22, 0], [0, 22]].find(([a, b]) => x >= a && x < a + 7 && y >= b && y < b + 7);
@@ -470,7 +867,8 @@ $('grid').innerHTML = POSTS.map(([code, img, cap, type]) =>
     if (f) { const dx = x - f[0], dy = y - f[1]; on = dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx > 1 && dx < 5 && dy > 1 && dy < 5); }
     c.fillStyle = on ? '#000' : '#fff'; c.fillRect(x, y, 1, 1);
   }
-})();
+}
+drawQR('qr', 7);
 function renderSets() {
   const base = new Date('2026-11-10T00:00'), t = now();
   const at = hm => { const [h, m] = hm.split(':').map(Number); return new Date(+base + ((h < 12 ? h + 24 : h) * 60 + m) * 60000); };
@@ -481,7 +879,7 @@ function renderSets() {
 }
 renderSets(); setInterval(renderSets, 60000);
 $('faq').innerHTML = FAQ.map(([q, a]) => `<details><summary>${q}</summary><p class="mut">${a}</p></details>`).join('');
-const wIcon = c => c === 0 ? '☀️' : c <= 3 ? '⛅' : c <= 48 ? '🌫️' : c <= 67 ? '🌧️' : c <= 77 ? '❄️' : c <= 82 ? '🌦️' : '⛈️';
+const wIcon = c => c === 0 ? '☀️' : c <= 3 ? '⛅' : c <= 48 ? '☁️' : c <= 67 ? '🌧️' : c <= 77 ? '❄️' : c <= 82 ? '🌦️' : c <= 86 ? '🌨️' : '⛈️';
 fetch('https://api.open-meteo.com/v1/forecast?latitude=43.69&longitude=4.28&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FParis&forecast_days=16')
   .then(r => r.json()).then(d => {
     const D = d.daily, i = D.time.indexOf('2026-11-10'), j = i < 0 ? 0 : i;
@@ -497,9 +895,10 @@ function renderMe() {
   $('me-sum').innerHTML = `<div class="row"><span>Niveau</span><b>${L[1]}</b></div><div class="row"><span>Soirées vécues</span><b>${st.been.length}</b></div>
     <div class="row"><span>Artistes favoris</span><b>${st.fav.length}</b></div><div class="row"><span>Festival Val Thorens</span><b>${st.prereg ? 'pré-inscrit·e' : '—'}</b></div>`;
   document.querySelectorAll('.sw').forEach(b => b.classList.toggle('on', !!st.sw[b.dataset.k]));
+  renderLoy();
 }
 document.querySelectorAll('.sw').forEach(b => b.onclick = () => { st.sw[b.dataset.k] = !st.sw[b.dataset.k]; save(); renderMe(); toast(st.sw[b.dataset.k] ? 'Activé' : 'Désactivé'); });
-function wipe() { if (!confirm('Effacer ton passeport, tes favoris et tes réglages ?')) return; try { localStorage.removeItem('disconnect'); } catch {} location.reload(); }
+function wipe() { if (!confirm(tr('Effacer ton passeport, tes favoris et tes réglages ?'))) return; try { localStorage.removeItem('disconnect'); } catch {} location.reload(); }
 
 // Orga (chiffres fictifs)
 const bars = (el, rows) => { const m = Math.max(...rows.map(r => r[1])); $(el).innerHTML = rows.map(([l, v]) => `<div class="hb"><span>${l}</span><i style="width:${v / m * 50}%"></i><span class="mut">${v}</span></div>`).join(''); };
@@ -550,21 +949,105 @@ st.meet ??= 0;
 function renderMeet() { $('meet').innerHTML = MEET.map((m, i) => `<button class="${i === st.meet ? 'on' : ''}" onclick="st.meet=${i};save();renderMeet()">${m}</button>`).join(''); }
 function shareMeet() {
   const t = `On se retrouve à ${MEET[st.meet].toLowerCase()} · Disconnect à La Churascaia 🔌`;
-  navigator.share ? navigator.share({text:t}).catch(() => {}) : navigator.clipboard?.writeText(t).then(() => toast('Message copié, colle-le à ta bande'));
+  navigator.share ? navigator.share({text:tr(t)}).catch(() => {}) : navigator.clipboard?.writeText(tr(t)).then(() => toast('Message copié, colle-le à ta bande'));
 }
 
 function install() {
   toast(/iPhone|iPad/.test(navigator.userAgent) ? 'Safari : Partager ⬆️ puis « Sur l\'écran d\'accueil »' : 'Menu du navigateur ⋮ puis « Ajouter à l\'écran d\'accueil »');
 }
 
+// Météo de nos lieux (Open-Meteo, un seul appel pour les 3 lieux)
+const WX = [['Vauvert', 43.69, 4.28, 'Churascaia'], ['Nîmes', 43.84, 4.36, 'Clos de Provence'], ['Val Thorens', 45.30, 6.58, 'Festival']];
+let wxData = null; st.wx ??= 0;
+function renderWx() {
+  $('wx-chips').innerHTML = WX.map(([n], i) => `<button class="${i === st.wx ? 'on' : ''}" onclick="st.wx=${i};save();renderWx()">${n}</button>`).join('');
+  if (!wxData) return;
+  const d = wxData[st.wx], c = d.current, D = d.daily, snow = st.wx === 2;
+  $('wx-body').innerHTML = `<div class="wx-now"><span class="e">${wIcon(c.weather_code)}</span><div><div class="t">${Math.round(c.temperature_2m)}°</div>
+    <div class="mut">${WX[st.wx][3]} · vent ${Math.round(c.wind_speed_10m)} km/h${snow ? (c.snow_depth ? ` · neige ${Math.round(c.snow_depth * 100)} cm` : " · pas encore de neige") : ''}</div></div></div>
+    <div class="wx-days">${D.time.map((t, i) => `<div><b>${i ? fmt(t, {weekday:'short'}).replace('.', '') : 'Auj.'}</b><div class="e">${wIcon(D.weather_code[i])}</div>
+      ${Math.round(D.temperature_2m_max[i])}° <span class="mut">${Math.round(D.temperature_2m_min[i])}°</span>
+      <div class="r">${snow && D.snowfall_sum[i] ? '❄ ' + Math.round(D.snowfall_sum[i]) + ' cm' : D.precipitation_probability_max[i] + ' %'}</div></div>`).join('')}</div>`;
+}
+fetch(`https://api.open-meteo.com/v1/forecast?latitude=${WX.map(w => w[1])}&longitude=${WX.map(w => w[2])}&elevation=nan,nan,2300&current=temperature_2m,weather_code,wind_speed_10m,snow_depth&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,snowfall_sum&timezone=Europe%2FParis&forecast_days=7`)
+  .then(r => r.json()).then(d => { wxData = d; renderWx(); }).catch(() => $('wx-body').innerHTML = '<span class="mut">Météo indisponible hors ligne.</span>');
+renderWx();
+
+// Carte de fidélité (démo : tampons stockés sur le téléphone)
+const REWARDS = [[2, '🧥', 'Vestiaire offert'], [4, '🍹', 'Une conso offerte'], [6, '⚡', 'Coupe-file à l\'entrée'], [8, '🎟️', 'Un billet offert']];
+st.stamps ||= 0; st.used ||= [];
+st.mid ||= String(Math.floor(1000 + Math.random() * 9000));
+const nStamps = () => st.been.length + st.stamps + (st.ref ? 1 : 0);
+function renderLoy(fresh) {
+  const n = nStamps(), L = LEVELS.filter(l => st.been.length >= l[0]).pop();
+  $('loy-pts').textContent = n * 100 + (st.prereg ? 50 : 0) + (st.note ? 20 : 0);
+  $('loy-tier').textContent = L[1]; $('loy-name').textContent = st.name || 'Membre DC';
+  $('loy-num').textContent = 'DC · 2026 · ' + st.mid;
+  $('loy-count').textContent = `${Math.min(n, 8)} / 8`;
+  $('home-loy').textContent = `${n} tampon${n > 1 ? 's' : ''} · ${REWARDS.filter(r => n >= r[0]).length} récompense(s)`;
+  $('stamps').innerHTML = Array.from({length: 8}, (_, i) => `<div class="${i < n ? 'on' : ''} ${fresh && i === n - 1 ? 'new' : ''}">${i < n ? 'DC' : i + 1}</div>`).join('');
+  $('rewards').innerHTML = REWARDS.map(([k, ic, t], i) => {
+    const ok = n >= k, used = st.used.includes(i);
+    return `<div class="rw ${ok ? 'ok' : ''}"><div class="ic">${ic}</div><div><b>${t}</b><div class="mut">${ok ? (used ? 'Utilisée' : 'Débloquée') : `À ${k} tampons`}</div></div>
+      ${ok && !used ? `<button class="been on" onclick="useRw(${i})">Utiliser</button>` : ''}</div>`;
+  }).join('');
+}
+function stamp() { st.stamps++; save(); renderLoy(true); renderMe(); toast('Tampon ajouté 🔌'); }
+function refer() {
+  const t = `Rejoins la famille Disconnect avec mon code DC${st.mid} 🔌 ${location.href.split('?')[0]}`;
+  const done = () => { if (!st.ref) { st.ref = true; save(); renderLoy(true); } toast('Parrainage envoyé · +1 tampon'); };
+  navigator.share ? navigator.share({text:tr(t)}).then(done).catch(() => {}) : navigator.clipboard?.writeText(tr(t)).then(done);
+}
+function useRw(i) { if (!confirm(tr('Montre l\'écran au staff. Utiliser cette récompense maintenant ?'))) return; st.used.push(i); save(); renderLoy(); toast('Récompense validée ✓'); }
+drawQR('loy-qr', 99991);
+
+// Ajouter la prochaine soirée à l'agenda (.ics)
+function ics() {
+  const z = d => new Date(d).toISOString().replace(/[-:]|\.\d+/g, '');
+  const body = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Disconnect demo//FR', 'BEGIN:VEVENT', 'UID:' + NEXT.id + '@disconnect-demo',
+    'DTSTAMP:' + z(now()), 'DTSTART:' + z(NEXT.date), 'DTEND:' + z(NEXT.end || NEXT.date), 'SUMMARY:Disconnect · ' + NEXT.name,
+    'LOCATION:' + NEXT.place, 'URL:' + NEXT.url, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([body], {type:'text/calendar'})); a.download = 'disconnect-' + NEXT.id + '.ics'; a.click();
+}
+
+// Navette (fictive : départs, prix et places de démo)
+const BUS = [['20:45', 'Montpellier', 'Gare Saint-Roch', '12 €', 14], ['21:15', 'Nîmes', 'Gare Feuchères', '10 €', 6], ['21:30', 'Arles', 'Bd des Lices', '10 €', 22]];
+st.bus ??= -1;
+function renderBus() {
+  $('bus').innerHTML = BUS.map(([h, v, pt, px, left], i) => `<div class="bus"><b class="u">${h}</b><div><b>${v}</b><div class="mut">${pt} · ${px} · ${left - (st.bus === i ? 1 : 0)} places</div></div>
+    <button class="been ${st.bus === i ? 'on' : ''}" onclick="bookBus(${i})">${st.bus === i ? '✓ Réservé' : 'Réserver'}</button></div>`).join('');
+}
+function bookBus(i) { st.bus = st.bus === i ? -1 : i; save(); renderBus(); toast(st.bus < 0 ? 'Réservation annulée' : `Place réservée · départ ${BUS[i][0]} de ${BUS[i][1]}`); }
+
+// Jeu concours (fictif)
+st.ct ||= 0; // 0 = pas inscrit, sinon nombre de chances
+function renderContest() {
+  const left = Math.ceil((new Date('2026-11-05T18:00') - now()) / 86400000);
+  $('ct-info').textContent = (left > 0 ? `Tirage dans ${left} jour${left > 1 ? 's' : ''}` : 'Tirage effectué') + (st.ct ? ` · tu as ${st.ct} chance${st.ct > 1 ? 's' : ''}` : '');
+  $('ct-btn').textContent = st.ct ? '✓ Inscrit·e au tirage' : 'Je participe';
+}
+function contest() { if (st.ct) return toast('Tu es déjà inscrit·e'); st.ct = 1; save(); renderContest(); toast('Inscrit·e ! Bonne chance 🍀'); }
+function contestShare() {
+  const t = `Je tente de gagner 2 places pour Sidney Charles à La Churascaia avec Disconnect 🔌 ${location.href.split('?')[0]}`;
+  const done = () => { st.ct = Math.max(st.ct, 1) + 1; save(); renderContest(); toast('+1 chance au tirage'); };
+  navigator.share ? navigator.share({text:tr(t)}).then(done).catch(() => {}) : navigator.clipboard?.writeText(tr(t)).then(done);
+}
+
+renderBus(); renderContest();
 renderVT(); renderStars(); renderMeet();
 renderPoll(); renderEvents(); renderArtists(); renderMe();
+$('lang').value = LANG;
+trDom(document.body);
+new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(trDom))).observe(document.body, {childList:true, subtree:true});
 if (location.search.includes('cap')) document.body.classList.add('cap'); // captures pour la présentation
+setTimeout(() => $('splash').classList.add('off'), location.search.includes('cap') || location.search.includes('tab') ? 0 : 900);
 const tab = new URLSearchParams(location.search).get('tab'); if (tab && $(tab)) go(tab);
 if (location.search.includes('test')) {
   console.assert(upcoming().length === 0 || NEXT === upcoming()[0], 'prochaine soirée');
   console.assert(Object.keys(ARTISTS).length > 15, 'artistes');
   console.assert(document.querySelectorAll('#grid a').length === 12, 'moments');
+  openStory(0); stStep(1); stStep(1); stStep(1); console.assert(sg === 1 && si === 0, 'stories'); closeStory();
+  const n0 = nStamps(); stamp(); console.assert(nStamps() === n0 + 1 && $('stamps').querySelectorAll('.on').length === Math.min(8, n0 + 1), 'tampons'); st.stamps--; save(); renderLoy();
   console.log('selftest ok');
 }
 </script>
